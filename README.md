@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 ## Installation
 The easiest way to install the latest release version of *arnold* is via `pip`:
 ```
-pip install jointforces
+pip install arnold (bereits vergeben??)
 ```
 Alternatively, a zipped version can be downloaded [here](https://github.com/...). The module is installed by calling `python setup.py install`.
 
