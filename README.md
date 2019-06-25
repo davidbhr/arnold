@@ -57,5 +57,3 @@ series Evaluation
 
 ## License
 [The MIT License (MIT)](https://github.com/.../blob/master/LICENSE)
-
-If you have any further questions, suggestions or comments, do not hesitate to contact me: &#098;&#097;&#121;&#101;&#115;&#108;&#111;&#111;&#112;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;
