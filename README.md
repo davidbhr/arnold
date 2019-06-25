@@ -1,6 +1,6 @@
-# jointforces
+# arnold
 
-blabla
+
 
 ## Features
 * super feature 1
@@ -9,11 +9,11 @@ blabla
 
 
 ## Getting started
-blabla
+
 
 Code example
 ```python
-import jointforces as jf
+import arnold as ar
 import matplotlib.pyplot as plt
 
 ...
@@ -23,21 +23,21 @@ import matplotlib.pyplot as plt
 
 
 ## Installation
-The easiest way to install the latest release version of *jointforces* is via `pip`:
+The easiest way to install the latest release version of *arnold* is via `pip`:
 ```
 pip install jointforces
 ```
 Alternatively, a zipped version can be downloaded [here](https://github.com/...). The module is installed by calling `python setup.py install`.
 
 ### Development version
-The latest development version of *jointforces* can be installed from the master branch using pip (requires git):
+The latest development version of *arnold* can be installed from the master branch using pip (requires git):
 ```
 pip install git+https://github.com/...
 ```
 Alternatively, use this [zipped version](https://github.com/.../zipball/master) or clone the repository.
 
 ## Dependencies
-*jointforces* is tested on Python 3.6. It depends on .... All except ... are already included in the [Anaconda distribution](https://www.continuum.io/downloads) of Python. Windows users may also take advantage of pre-compiled binaries for all dependencies, which can be found at [Christoph Gohlke's page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
+*arnold* is tested on Python 3.6. It depends on .... All except ... are already included in the [Anaconda distribution](https://www.continuum.io/downloads) of Python. Windows users may also take advantage of pre-compiled binaries for all dependencies, which can be found at [Christoph Gohlke's page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
 
 ## License
 [The MIT License (MIT)](https://github.com/.../blob/master/LICENSE)
