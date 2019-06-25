@@ -1,11 +1,7 @@
 # arnold
 
-
-
-## Features
-* super feature 1
-* super feature 2
-* ...
+Arnold is a python package to analyze muscle forces 3D traction force microscopy. Combining mesh GMSH (..) and SAENO (..).
+Enables computing forces by a simple scaling law without new simulation,   starting indiviaul simuations or series simulation
 
 
 ## Getting started
