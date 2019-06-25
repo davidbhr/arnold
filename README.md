@@ -19,13 +19,12 @@ import matplotlib.pyplot as plt
 ...
 ```
 
-![Image](http://Image-URL)
 
 
 ## Installation
 The easiest way to install the latest release version of *arnold* is via `pip`:
 ```
-pip install arnold (bereits vergeben??)
+pip install -e . 
 ```
 Alternatively, a zipped version can be downloaded [here](https://github.com/...). The module is installed by calling `python setup.py install`.
 
@@ -38,7 +37,8 @@ Alternatively, use this [zipped version](https://github.com/.../zipball/master) 
 
 ## Intro 
 
-GIF muscle
+![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
+
 
 ## Scaling law
 
