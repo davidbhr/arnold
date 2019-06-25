@@ -36,9 +36,20 @@ Alternatively, use this [zipped version](https://github.com/.../zipball/master) 
 ![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
 
 
+
+## Individual Simulation
+
+
+
 ## Scaling law
 
-## dfsdf
+
+
+## Series
+
+starting
+
+series Evaluation
 
 
 ## Dependencies
