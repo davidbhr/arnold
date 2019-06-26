@@ -9,7 +9,6 @@ from matplotlib.ticker import FormatStrFormatter
 import pandas as pd
 
 
-
 # Cylindric Inclusion --------------------------------------------------------------------------------------------------
 
 def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer):
@@ -83,8 +82,7 @@ def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer):
     plt.savefig(simulation_folder+"\Force_Displ_Field.png")
     plt.close()
     
-    
-       
+           
     # Plot 2: Left / Right Forces and boundary conditions
     fig2 = plt.figure()
     ax2 = Axes3D(fig2)
