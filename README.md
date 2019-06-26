@@ -38,7 +38,7 @@ Alternatively, use this [zipped version](https://github.com/.../zipball/master) 
 ## Individual Simulation
 
 
-<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="100" height="100">
+<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="300" >
 
 
 
