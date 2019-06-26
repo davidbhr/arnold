@@ -31,6 +31,9 @@ Alternatively, use this [zipped version](https://github.com/.../zipball/master) 
 
 ## Intro 
 
+<img src="(https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif" width="600" >
+
+
 ![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
 
 
@@ -38,7 +41,7 @@ Alternatively, use this [zipped version](https://github.com/.../zipball/master) 
 ## Individual Simulation
 
 
-<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="300" >
+<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="600" >
 
 
 
