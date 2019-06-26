@@ -31,7 +31,7 @@ Alternatively, use this [zipped version](https://github.com/.../zipball/master) 
 
 ## Intro 
 
-<img src="(https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif" width="600" >
+<gif src="(https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif" width="600" >
 
 
 ![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
