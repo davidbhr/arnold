@@ -39,7 +39,7 @@ Alternatively, use this [zipped version](https://github.com/.../zipball/master) 
 
 
 
-![](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png =250x250)
+![](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png){:height="700px" width="400px"}
 
 
 
