@@ -100,15 +100,22 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 ```python
 ar.simulation.cylindric_contraction(r'C/../Simulation', r'C/../Our_model.msh', d_cyl=30, l_cyl=300,
-r_outer=2000, strain=0.1, ar.materials.matrigel10):
+r_outer=2000, strain=0.1, ar.materials.matrigel10)
 ```
 
 
 
 *__Third__*, we compute the overall contractility from the resultin simulation (by summing up). We receive a excel document (contractility mean ..)a nd image of deformtion+force field for visualization of simulation. (check if converged) 
 
+```python
+ar.force.reconstruct_contractility(r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
+```
+
+
 
 BILD
+
+
 
 
 
