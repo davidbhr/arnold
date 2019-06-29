@@ -44,8 +44,8 @@ Now we need to tell arnold  where `Gmsh` and `SAENO` are stored for one single t
 ```python
 import arnold as ar
 
-ar.set_gmsh_path(r'C:\...\gmsh-4.3.0-Windows64-sdk')
-ar.set_saeno_path(r'C:\...\SAENO')
+ar.set_gmsh_path(r'C:\..\gmsh-4.3.0-Windows64-sdk')
+ar.set_saeno_path(r'C:\..\SAENO')
 ```
 
 Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not have to be set at all.
@@ -56,7 +56,7 @@ Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not
 
 ## Introduction
 
-A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to check if the fiber's are attached to the matrix environment and in order to compare the simulated and measured matrix deformations.
+A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to check that the fibers are attached to the matrix environment and in order to compare the simulated and measured matrix deformations.
 
 *In the Gif below a single flexor digitorum longus fiber is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaitons with frequencies ranging from 10 Hz to 100 Hz)*
 
@@ -75,19 +75,18 @@ To measure the exerted muscle forces, we need the following information about th
 
 A simulation can be splitted into three parts:
 
-*__First__*, we need to build a mesh model of the geometry using GMSH. Here the fiber in the relaxed state is simulated as an inner cylindric inclusion with length *l* and diameter *d*, which is placed into a sphere with radius *router* simulating the corresponding matrix environments.  X is Y is
-
+*__First__*, we need to build a mesh model of the geometry using GMSH. Here the fiber in the relaxed state is simulated as an inner cylindric inclusion with length *l_cyl* and diameter *d_cyl*, which is placed into a sphere with radius *r_outer* that simulates the matrix environment. Units are given in *µm* and the *length_factor* allows to tune the fineness of the mesh model (lower values correspond to a finer mesh. The element sizes are increased close to the cylindric inclusion by default)
 
 ```python
 
-ar.
+ar.mesh.cylindrical_inclusion(r'C/../Our_model.msh', d_cyl=30, l_cyl=300, r_outer=2000, length_factor=0.2):
 ```
 
 The resulting mesh can be displayed by using the following command:
 
 ```python
 
-ar.
+ar.mesh.show_mesh(r'C/../Our_model.msh')
 ```
 
 
@@ -95,13 +94,16 @@ ar.
 
 
 
-*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of cylinder using SAENO network optimizer. Here *x* is ...
+
+*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of cylinder using the network optimizer SAENO. Here *x* is ...
 
 
 ```python
 
-ar.
+ar.simulation.cylindric_contraction(r'C/../Simulation', r'C/../Our_model.msh', d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel10):
 ```
+
+
 
 *__Third__*, we compute the overall contractility from the resultin simulation (by summing up). We receive a excel document (contractility mean ..)a nd image of deformtion+force field for visualization of simulation. (check if converged) 
 
