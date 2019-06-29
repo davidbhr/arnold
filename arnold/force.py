@@ -187,7 +187,7 @@ def scaling_law(d,l,s,E):
     s0 = 10.  # in percent
     E0 = 200.  
             
-    Contractility = ( 4.57084143074725e-07  * (E/E0) * (l/l0) * ((0.5 * l/l0) + ((0.5 *d/d0))) * (s/s0)) * 1e6          
+    Contractility = (  4.553581636199e-07 * (E/E0) * (l/l0) * ((0.5 * l/l0) + ((0.5 *d/d0))) * (s/s0)) * 1e6          
     
     print ('Contractility = '+str(Contractility)+'µN')
     return (Contractility)
