@@ -112,7 +112,7 @@ d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel10)
 ar.force.reconstruct_contractility(simulation_folder=r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
 ```
 
-We receive a excel document (contractility mean .. x components) and an image of deformtion+force field for visualization of simulation. (check if converged) 
+We receive a excel document contrctilities. contractility mean x components gves us of contractility of muscefiber only taking x components into account (possible noise errors..) and half of cell (due magdeburger halkugeln..). Also store contractility derived from absolute vectors instead of x components and over whole area instead of half. Additionally residuum forces are calculated to check validity of simulation. For visualization and possible error detection an image of the deformtion and force field is stored. 
 
 
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Force_Displ_Field.png" width="400" >
