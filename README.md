@@ -120,7 +120,7 @@ We receive a excel document contrctilities. contractility mean x components gves
 
 
 
-*__All three steps mentioned above can be conducted consequently with a single line. For an individual simulation just need to type:__*
+*__All three abovementioned steps can be performed consecutively by using a single command. For an individual simulation just need to execute the combined function:__*
 
 
 ```python
