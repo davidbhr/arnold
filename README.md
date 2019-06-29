@@ -84,7 +84,7 @@ the mesh can be displayed by using
 ar.
 ```
 
-<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="400" >
+<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="600" >
 
 
 
@@ -105,7 +105,7 @@ BILD
 
 
 
-**All three steps mentioned above can be conducted consequently with a single line. For an individual simulation just need to type:
+** All three steps mentioned above can be conducted consequently with a single line. For an individual simulation just need to type: **
 
 
 ```python
