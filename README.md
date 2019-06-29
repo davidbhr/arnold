@@ -6,16 +6,7 @@ By assuming a simple cylindircal geometry,  traction forces can be computed for 
 
 A scaling law, derived from such simulation in linear materials, enables computing forces just by cell geometry an strain without the need of individual simulations.
 
-## Getting started
 
-
-Code example
-```python
-import arnold as ar
-import matplotlib.pyplot as plt
-
-...
-```
 
 
 
@@ -32,6 +23,21 @@ The latest development version of *arnold* can be installed from the master bran
 pip install git+https://github.com/...
 ```
 Alternatively, use this [zipped version](https://github.com/.../zipball/master) or clone the repository.
+
+
+## Setting up paths..
+
+
+
+
+
+Then the module is simply imported to python as following
+```python
+import arnold as ar
+...
+
+
+
 
 ## Intro 
 
