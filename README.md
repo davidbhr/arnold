@@ -93,8 +93,8 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="600" >
 
-
-
+\
+\
 
 *__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. Here *x* is ... strain in .. +zero displacement at outer boundary of the bulk material.
 
@@ -121,12 +121,15 @@ Non-linear materials are characterized by four parameters:
 - `D_S`: the rate of stiffness variation during strain stiffening
 A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
 
-
-
-
+\
+\
 
 for displacements set on surface we obtain forces for material we obtain deformation field die eben diese kräfte kompensieren/erklären.
  output files of a simulation can be found the [Wiki of the SAENO project](https://github.com/Tschaul/SAENO/wiki). The file `parameters.txt` contains all parameters used int he simulation.
+\
+\
+
+
 
 
 
@@ -153,13 +156,8 @@ ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file=
 d_cyl=30,l_cyl=300, r_outer=2000, length_factor=0.2, simulation_folder=r'C/../Simulation', 
 strain=0.1, ar.materials.matrigel10)
 ```
-
-
-## Materials
-
-
-
-
+\
+\
 
 ## Scaling law
 
