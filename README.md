@@ -79,7 +79,7 @@ A simulation can be splitted into three parts:
 
 ```python
 
-ar.mesh.cylindrical_inclusion(r'C/../Our_model.msh', d_cyl=30, l_cyl=300, r_outer=2000, length_factor=0.2):
+ar.mesh.cylindrical_inclusion(mesh_file=r'C/../Our_model.msh', d_cyl=30, l_cyl=300, r_outer=2000, length_factor=0.2):
 ```
 
 The resulting mesh can be displayed by using the following command:
@@ -122,8 +122,9 @@ ar.force.reconstruct_contractility(r'C/../Simulation', d_cyl=30, l_cyl=300, r_ou
 
 ```python
 
-ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'C/../Our_model.msh', 
- d_cyl=30, l_cyl=300, r_outer=2000, length_factor=0.2, simulation_folder=r'C/../Simulation',  strain=0.1, ar.materials.matrigel10)
+ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file=r'C/../Our_model.msh', 
+ d_cyl=30, l_cyl=300, r_outer=2000, length_factor=0.2, simulation_folder=r'C/../Simulation', 
+ strain=0.1, ar.materials.matrigel10)
 ```
 
 
