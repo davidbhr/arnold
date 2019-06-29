@@ -71,9 +71,9 @@ To measure muscle force we need the following information about the respective c
 
 ## Individual Simulation
 
-A simulation can be splitted in three parts:
+A simulation can be splitted into three parts:
 
-*__First__* we need to build mesh of geometry by using. here inner cylindric inclusion correponds fiber in the relaxed state and outer to tend of mesh by using GMSH.
+*__First__*, we need to build a mesh model of the geometry using GMSH. Here the fiber in the relaxed state is simulated as an inner cylindric inclusion with length *l* and diameter *d*, which is placed into a sphere with radius *router* simulating the corresponding matrix environments.  X is Y is
 
 
 ```python
@@ -81,19 +81,19 @@ A simulation can be splitted in three parts:
 ar.
 ```
 
-
-the mesh can be displayed by using 
+The resulting mesh can be displayed by using the following command:
 
 ```python
 
 ar.
 ```
+
 
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="600" >
 
 
 
-*__Second__* amply boundary condition and start simulation
+*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of cylinder using SAENO network optimizer. Here *x* is ...
 
 
 ```python
@@ -101,12 +101,10 @@ ar.
 ar.
 ```
 
-*__Third__* from the resultin simulation compute overall contractility (by summing up ...). We receive a excel document and image of deformtion+force field for visualization of simulation. (check if converged)
+*__Third__*, we compute the overall contractility from the resultin simulation (by summing up). We receive a excel document (contractility mean ..)a nd image of deformtion+force field for visualization of simulation. (check if converged) 
 
 
 BILD
-
-
 
 
 
