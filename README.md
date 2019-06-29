@@ -105,8 +105,9 @@ BILD
 
 
 
-** All three steps mentioned above can be conducted consequently with a single line. For an individual simulation just need to type: **
+**All three steps mentioned above can be conducted consequently with a single line. For an individual simulation just need to type:
 
+zhtr
 
 ```python
 
