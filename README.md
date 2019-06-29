@@ -56,11 +56,16 @@ Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not
 
 ## Introduction
 
-Typical measurement can look like following. muscle fiber are  embedded in certain matrix environment . in this case matrigel was used. beads are used to see if attachment cell matrix and to compare simulated and measure matrix deformations (see DOI).
-
-Contraction induced via electical stimulation (In this case SP 10 25 50 75 100 hz). To measure muscle force we need to have information about the jeweilige contraction:  Fiber length and diameter in relaxed state (easily measured from raw images). Strain of the contraction (derived as x/y..) and the Youngs modulus of the material in Pa (from rheometer measurements or literature). In case of non linear materials more parameters needed (see Julian ..)
+A typical measurement can look like following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. In the Gif a single flexor digitorum longus fiber is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaiton with frequencies from 10 to 100 Hz). The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy. Beads are embedded to check if the fiber's are attached to the matrix environment and to compare the simulated and measured matrix deformations.
 
 ![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
+
+
+To measure muscle force we need the following information about the respective contraction: 
+
+- The fiber length and diameter in relaxed state (easily measured from raw images). 
+- The Strain  (derived as x/y..) 
+- The Youngs modulus of the material in Pa (from rheometer measurements or literature). In case of non linear materials more parameters needed (see Julian .. + parameters)
 
 
 
@@ -68,7 +73,7 @@ Contraction induced via electical stimulation (In this case SP 10 25 50 75 100 h
 
 A simulation can be splitted in three parts:
 
-*__First__* we need to build mesh of geometry by using . here inner cylindric inclusion correponds fiber in the relaxed state and outer to tend of mesh. 
+*__First__* we need to build mesh of geometry by using. here inner cylindric inclusion correponds fiber in the relaxed state and outer to tend of mesh by using GMSH.
 
 
 ```python
