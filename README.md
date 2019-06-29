@@ -115,7 +115,7 @@ ar.force.reconstruct_contractility(simulation_folder=r'C/../Simulation', d_cyl=3
 We receive a excel document (contractility mean .. x components) and an image of deformtion+force field for visualization of simulation. (check if converged) 
 
 
-<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Force_Displ_Field.png" width="600" >
+<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Force_Displ_Field.png" width="400" >
 
 
 
