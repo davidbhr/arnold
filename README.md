@@ -96,13 +96,37 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 
 
-*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of cylinder using the network optimizer SAENO. Here *x* is ... strain in ..
+*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. Here *x* is ... strain in .. +zero displacement at outer boundary of the bulk material.
 
 
 ```python
 ar.simulation.cylindric_contraction(simulation_folder=r'C/../Simulation', mesh_file=r'C/../Our_model.msh', 
 d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel10)
 ```
+
+material  ..   [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
+ "pre-configured" material types for collagen gels of three different concentrations (0.6, 1.2, and 2.4mg/ml). Detailed protocols for reproducing these gels can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685) and [Condor et al. (2017)](https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpcb.24). Furthermore, one can define a linear elastic material with a specified `stiffness` (in Pa) with:
+
+```
+jf.materials.linear(stiffness)
+```
+To define a non-linear elastic material, use the `custom` material type:
+```
+jf.materials.custom(K_0, D_0, L_S, D_S)
+```
+Non-linear materials are characterized by four parameters:
+- `K_0`: the linear stiffness (in Pa)
+- `D_0`: the rate of stiffness variation during fiber buckling
+- `L_S`: the onset strain for strain stiffening
+- `D_S`: the rate of stiffness variation during strain stiffening
+A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
+
+
+
+
+
+for displacements set on surface we obtain forces for material we obtain deformation field die eben diese kräfte kompensieren/erklären.
+ output files of a simulation can be found the [Wiki of the SAENO project](https://github.com/Tschaul/SAENO/wiki). The file `parameters.txt` contains all parameters used int he simulation.
 
 
 
@@ -131,7 +155,9 @@ strain=0.1, ar.materials.matrigel10)
 ```
 
 
-## Material properties
+## Materials
+
+
 
 
 
