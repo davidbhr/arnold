@@ -68,7 +68,7 @@ Contraction induced via electical stimulation (In this case SP 10 25 50 75 100 h
 
 A simulation can be splitted in three parts:
 
-First we need to build mesh of geometry by using . here inner cylindric inclusion correponds fiber in the relaxed state and outer to tend of mesh. 
+*__First__* we need to build mesh of geometry by using . here inner cylindric inclusion correponds fiber in the relaxed state and outer to tend of mesh. 
 
 
 ```python
@@ -88,7 +88,7 @@ ar.
 
 
 
-Second amply boundary condition and start simulation
+*__Second__* amply boundary condition and start simulation
 
 
 ```python
@@ -96,7 +96,7 @@ Second amply boundary condition and start simulation
 ar.
 ```
 
-Third from the resultin simulation compute overall contractility (by summing up ...). We receive a excel document and image of deformtion+force field for visualization of simulation. (check if converged)
+*__Third__* from the resultin simulation compute overall contractility (by summing up ...). We receive a excel document and image of deformtion+force field for visualization of simulation. (check if converged)
 
 
 BILD
@@ -107,7 +107,6 @@ BILD
 
 *__All three steps mentioned above can be conducted consequently with a single line. For an individual simulation just need to type:__*
 
-zhtr
 
 ```python
 
