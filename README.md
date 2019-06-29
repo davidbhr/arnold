@@ -105,7 +105,7 @@ BILD
 
 
 
-__All three steps mentioned above can be conducted consequently with a single line. For an individual simulation just need to type:___
+*__All three steps mentioned above can be conducted consequently with a single line. For an individual simulation just need to type:__*
 
 zhtr
 
