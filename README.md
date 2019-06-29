@@ -44,8 +44,8 @@ Now we need to tell arnold  where `Gmsh` and `SAENO` are stored for one single t
 ```python
 import arnold as ar
 
-ar.set_gmsh_path(r'C:\...\gmsh-4.3.0-Windows64-sdk')
-ar.set_saeno_path(r'C:\...\SAENO')
+ar.set_gmsh_path(r'C:\..\gmsh-4.3.0-Windows64-sdk')
+ar.set_saeno_path(r'C:\..\SAENO')
 ```
 
 Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not have to be set at all.
@@ -56,18 +56,18 @@ Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not
 
 ## Introduction
 
-A typical measurement can look like following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy. Beads are embedded to check if the fiber's are attached to the matrix environment and to compare the simulated and measured matrix deformations.
+A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to check that the fibers are attached to the matrix environment and in order to compare the simulated and measured matrix deformations.
 
-*In the Gif below a single flexor digitorum longus fiber is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaiton with frequencies from 10 to 100 Hz)*
+*In the Gif below a single flexor digitorum longus fiber is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaitons with frequencies ranging from 10 Hz to 100 Hz)*
 
 ![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
 
 
-To measure muscle force we need the following information about the respective contraction: 
+To measure the exerted muscle forces, we need the following information about the respective contraction: 
 
-- The fiber length and diameter in relaxed state (easily measured from raw images). 
-- The Strain  (derived as x/y..) 
-- The Youngs modulus of the material in Pa (from rheometer measurements or literature). In case of non linear materials more parameters needed (see Julian .. + parameters)
+- The fiber length and diameter in relaxed state (easily measured from the raw images). 
+- The Strain (derived as (Relaxed_Length- Contracted_Length)/Relaxed_Length) 
+- The Youngs modulus of the material in Pa. In case of non linear materials more parameters needed (see Julian .. + parameterssee X.(derived from rheometer measurements or literature)
 
 
 
@@ -75,19 +75,18 @@ To measure muscle force we need the following information about the respective c
 
 A simulation can be splitted into three parts:
 
-*__First__*, we need to build a mesh model of the geometry using GMSH. Here the fiber in the relaxed state is simulated as an inner cylindric inclusion with length *l* and diameter *d*, which is placed into a sphere with radius *router* simulating the corresponding matrix environments.  X is Y is
-
+*__First__*, we need to build a mesh model of the geometry using GMSH. Here the fiber in the relaxed state is simulated as an inner cylindric inclusion with length *l_cyl* and diameter *d_cyl*, which is placed into a sphere with radius *r_outer* that simulates the matrix environment. Units are given in *µm* and the *length_factor* allows to tune the fineness of the mesh model (lower values correspond to a finer mesh. The element sizes are increased close to the cylindric inclusion by default)
 
 ```python
 
-ar.
+ar.mesh.cylindrical_inclusion(r'C/../Our_model.msh', d_cyl=30, l_cyl=300, r_outer=2000, length_factor=0.2):
 ```
 
 The resulting mesh can be displayed by using the following command:
 
 ```python
 
-ar.
+ar.mesh.show_mesh(r'C/../Our_model.msh')
 ```
 
 
@@ -95,18 +94,28 @@ ar.
 
 
 
-*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of cylinder using SAENO network optimizer. Here *x* is ...
+
+*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of cylinder using the network optimizer SAENO. Here *x* is ...
 
 
 ```python
-
-ar.
+ar.simulation.cylindric_contraction(r'C/../Simulation', r'C/../Our_model.msh', d_cyl=30, l_cyl=300,
+r_outer=2000, strain=0.1, ar.materials.matrigel10)
 ```
+
+
 
 *__Third__*, we compute the overall contractility from the resultin simulation (by summing up). We receive a excel document (contractility mean ..)a nd image of deformtion+force field for visualization of simulation. (check if converged) 
 
+```python
+ar.force.reconstruct_contractility(r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
+```
+
+
 
 BILD
+
+
 
 
 
