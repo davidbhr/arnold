@@ -34,7 +34,7 @@ Alternatively, use this [zipped version](https://github.com/.../zipball/master) 
 Then the module is simply imported to python as following
 ```python
 import arnold as ar
-...
+```
 
 
 
