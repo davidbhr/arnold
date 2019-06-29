@@ -132,4 +132,4 @@ series Evaluation
 *arnold* is tested on Python 3.6. It depends on .... All except ... are already included in the [Anaconda distribution](https://www.continuum.io/downloads) of Python. Windows users may also take advantage of pre-compiled binaries for all dependencies, which can be found at [Christoph Gohlke's page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
 
 ## License
-[The MIT License (MIT)](https://github.com/.../blob/master/LICENSE)
+[The MIT License (MIT)](https://github.com/davidbhr/arnold/blob/master/LICENSE)
