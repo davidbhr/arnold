@@ -56,18 +56,18 @@ Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not
 
 ## Introduction
 
-A typical measurement can look like following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy. Beads are embedded to check if the fiber's are attached to the matrix environment and to compare the simulated and measured matrix deformations.
+A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to check if the fiber's are attached to the matrix environment and in order to compare the simulated and measured matrix deformations.
 
-*In the Gif below a single flexor digitorum longus fiber is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaiton with frequencies from 10 to 100 Hz)*
+*In the Gif below a single flexor digitorum longus fiber is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaitons with frequencies ranging from 10 Hz to 100 Hz)*
 
 ![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/GIFs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
 
 
-To measure muscle force we need the following information about the respective contraction: 
+To measure the exerted muscle forces, we need the following information about the respective contraction: 
 
-- The fiber length and diameter in relaxed state (easily measured from raw images). 
-- The Strain  (derived as x/y..) 
-- The Youngs modulus of the material in Pa (from rheometer measurements or literature). In case of non linear materials more parameters needed (see Julian .. + parameters)
+- The fiber length and diameter in relaxed state (easily measured from the raw images). 
+- The Strain (derived as (Relaxed_Length- Contracted_Length)/Relaxed_Length) 
+- The Youngs modulus of the material in Pa. In case of non linear materials more parameters needed (see Julian .. + parameterssee X.(derived from rheometer measurements or literature)
 
 
 
