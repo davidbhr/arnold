@@ -95,7 +95,7 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 
 
-*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of cylinder using the network optimizer SAENO. Here *x* is ...
+*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of cylinder using the network optimizer SAENO. Here *x* is ... strain in ..
 
 
 ```python
@@ -105,16 +105,14 @@ r_outer=2000, strain=0.1, ar.materials.matrigel10)
 
 
 
-*__Third__*, we compute the overall contractility from the resultin simulation (by summing up). We receive a excel document (contractility mean ..)a nd image of deformtion+force field for visualization of simulation. (check if converged) 
+*__Third__*, we compute the overall contractility from the resultin simulation (by summing up). We receive a excel document (contractility mean ..) and an image of deformtion+force field for visualization of simulation. (check if converged) 
 
 ```python
 ar.force.reconstruct_contractility(r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
 ```
 
 
-
-BILD
-
+<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Force_Displ_Field.png" width="600" >
 
 
 
@@ -124,7 +122,8 @@ BILD
 
 ```python
 
-ar.
+ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'C/../Our_model.msh', 
+ d_cyl=30, l_cyl=300, r_outer=2000, length_factor=0.2, simulation_folder=r'C/../Simulation',  strain=0.1, ar.materials.matrigel10)
 ```
 
 
