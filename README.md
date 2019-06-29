@@ -75,6 +75,10 @@ To measure the exerted muscle forces, we need the following information about th
 
 A simulation can be splitted into three parts:
 
+
+
+
+
 *__First__*, we need to build a mesh model of the geometry using GMSH. Here the fiber in the relaxed state is simulated as an inner cylindric inclusion with length *l_cyl* and diameter *d_cyl*, which is placed into a sphere with radius *r_outer* that simulates the matrix environment. Units are given in *µm* and the *length_factor* allows to tune the fineness of the mesh model (lower values correspond to a finer mesh. The element sizes are increased close to the cylindric inclusion by default)
 
 ```python
@@ -93,8 +97,9 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/GMSH_arnold.png" width="600" >
 
-\
-\
+
+
+
 
 *__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. Here *x* is ... strain in .. +zero displacement at outer boundary of the bulk material.
 
@@ -121,13 +126,14 @@ Non-linear materials are characterized by four parameters:
 - `D_S`: the rate of stiffness variation during strain stiffening
 A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
 
-\
-\
+
+
 
 for displacements set on surface we obtain forces for material we obtain deformation field die eben diese kräfte kompensieren/erklären.
  output files of a simulation can be found the [Wiki of the SAENO project](https://github.com/Tschaul/SAENO/wiki). The file `parameters.txt` contains all parameters used int he simulation.
-\
-\
+
+
+
 
 
 
