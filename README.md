@@ -106,11 +106,13 @@ d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel10)
 
 
 
-*__Third__*, we compute the overall contractility from the resultin simulation (by summing up). We receive a excel document (contractility mean ..) and an image of deformtion+force field for visualization of simulation. (check if converged) 
+*__Third__*, we compute the overall contractility from the resultin simulation (by summing up). 
 
 ```python
 ar.force.reconstruct_contractility(simulation_folder=r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
 ```
+
+We receive a excel document (contractility mean .. x components) and an image of deformtion+force field for visualization of simulation. (check if converged) 
 
 
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Force_Displ_Field.png" width="600" >
