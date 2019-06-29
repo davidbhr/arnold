@@ -99,8 +99,8 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 
 ```python
-
-ar.simulation.cylindric_contraction(r'C/../Simulation', r'C/../Our_model.msh', d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel10):
+ar.simulation.cylindric_contraction(r'C/../Simulation', r'C/../Our_model.msh', d_cyl=30, l_cyl=300,
+r_outer=2000, strain=0.1, ar.materials.matrigel10):
 ```
 
 
