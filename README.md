@@ -79,7 +79,8 @@ A simulation can be splitted into three parts:
 
 ```python
 
-ar.mesh.cylindrical_inclusion(mesh_file=r'C/../Our_model.msh', d_cyl=30, l_cyl=300, r_outer=2000, length_factor=0.2):
+ar.mesh.cylindrical_inclusion(mesh_file=r'C/../Our_model.msh', d_cyl=30, l_cyl=300,
+r_outer=2000, length_factor=0.2)
 ```
 
 The resulting mesh can be displayed by using the following command:
@@ -99,7 +100,8 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 
 ```python
-ar.simulation.cylindric_contraction(r'C/../Simulation', r'C/../Our_model.msh', d_cyl=30, l_cyl=300,
+ar.simulation.cylindric_contraction(simulation_folder=r'C/../Simulation', 
+mesh_file=r'C/../Our_model.msh', d_cyl=30, l_cyl=300,
 r_outer=2000, strain=0.1, ar.materials.matrigel10)
 ```
 
@@ -108,7 +110,7 @@ r_outer=2000, strain=0.1, ar.materials.matrigel10)
 *__Third__*, we compute the overall contractility from the resultin simulation (by summing up). We receive a excel document (contractility mean ..) and an image of deformtion+force field for visualization of simulation. (check if converged) 
 
 ```python
-ar.force.reconstruct_contractility(r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
+ar.force.reconstruct_contractility(simulation_folder=r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
 ```
 
 
