@@ -151,7 +151,6 @@ We receive a excel document contrctilities. contractility mean x components gves
 
 
 *__All three abovementioned steps can be performed consecutively by using a single command. For an individual simulation just you just need to execute the combined function:__*
-Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. 
 
 ```python
 
@@ -159,6 +158,7 @@ ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file=
 d_cyl=30,l_cyl=300, r_outer=2000, length_factor=0.2, simulation_folder=r'C/../Simulation', 
 strain=0.1, ar.materials.matrigel10)
 ```
+Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. 
 
 
 
