@@ -150,8 +150,8 @@ We receive a excel document contrctilities. contractility mean x components gves
 
 
 
-*__All three abovementioned steps can be performed consecutively by using a single command. For an individual simulation just need to execute the combined function:__*
-
+*__All three abovementioned steps can be performed consecutively by using a single command. For an individual simulation just you just need to execute the combined function:__*
+Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. 
 
 ```python
 
