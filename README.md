@@ -100,7 +100,7 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 
 
-*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. We read in the *mesh_file* and apply a symetrical contraction with the given *strain* (Relaxed_Length- Contracted_Length)/Relaxed_Length) on the inner cylindrical inclusion with specific length *l_cyl* and diameter *d_cyl*. At the outer boundary of the bulk material we constrain the deformations to zero.
+*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. We read in the *mesh_file* and apply a symetrical contraction with the given *strain* on the inner cylindrical inclusion with specific length *l_cyl* and diameter *d_cyl*. At the outer boundary of the bulk material we constrain the deformations to zero.
 
 
 ```python
