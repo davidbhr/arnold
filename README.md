@@ -32,14 +32,14 @@ import arnold as ar
 We still need to set up the interfaces to the open-source finite element mesh generator [`Gmsh`](http://gmsh.info/) and to the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO) .
 
 
-GMSH offers a python interface, which are available in the `Gmsh SDK` and can be downloaded [here](http://gmsh.info/#Download),
+GMSH offers a python interface within the `Gmsh SDK` , that can be downloaded [here](http://gmsh.info/#Download)
 or by simply running the following command: `pip install --upgrade gmsh-sdk`.
 
 
 To find the equilibrium configuration to the applied boundary problem *arnold* uses the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). A precompiled version of `SAENO` for 64bit Windows systems can be downloaded [here](https://github.com/davidbhr/arnold/tree/master/docs/SAENO). To build SAENO on other platforms the project can be found [here](https://github.com/Tschaul/SAENO).
 
 
-Now we need to tell arnold  where `Gmsh` and `SAENO` are stored for one single time. Therefore we simply use
+Now we need to tell arnold  where `Gmsh` and `SAENO` are stored for one single time. Therefore we simply use:
 
 ```python
 import arnold as ar
@@ -65,16 +65,15 @@ A typical measurement can look like the following: Muscle fibers are embedded in
 
 To measure the exerted muscle forces, we need the following information about the respective contraction: 
 
-- The fiber length and diameter in relaxed state (easily measured from the raw images). 
+- The fiber length and diameter in relaxed state (can easily be measured from the raw images). 
 - The Strain (derived as (Relaxed_Length- Contracted_Length)/Relaxed_Length) 
-- The Youngs modulus of the material in Pa. In case of non linear materials more parameters needed (see Julian .. + parameterssee X.(derived from rheometer measurements or literature)
+- The material properties of the surrounding matrix
 
 
 
 ## Individual Simulation
 
 A simulation can be splitted into three parts:
-
 
 
 
@@ -101,7 +100,7 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 
 
-*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. Here *x* is ... strain in .. +zero displacement at outer boundary of the bulk material.
+*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. We read in the *mesh_file* and apply a symetrical contraction with the given *strain* (Relaxed_Length- Contracted_Length)/Relaxed_Length) on the inner cylindrical inclusion with specific length *l_cyl* and diameter *d_cyl*. At the outer boundary of the bulk material we constrain the deformations to zero.
 
 
 ```python
@@ -128,9 +127,7 @@ A full description of the non-linear material model and the parameters can be fo
 
 
 
-
-for displacements set on surface we obtain forces for material we obtain deformation field die eben diese kräfte kompensieren/erklären.
- output files of a simulation can be found the [Wiki of the SAENO project](https://github.com/Tschaul/SAENO/wiki). The file `parameters.txt` contains all parameters used int he simulation.
+The results are stored in the given *simulation_folder*. For the set deformations at the fiber surface we obtain the respective forces, in the bulk material we obtain the corresponding deformations, which compensate for these forces. More information output files of a simulation can be found the [Wiki of the SAENO project](https://github.com/Tschaul/SAENO/wiki). The file `parameters.txt` contains all set parameters used in the simulation.
 
 
 
