@@ -1,4 +1,3 @@
-import gmsh
 import numpy as np
 from time import sleep
 import os
@@ -16,6 +15,8 @@ def cylindrical_inclusion(mesh_file, d_cyl=30, l_cyl=300, r_outer=2000, length_f
         r_outer(float): Outer radius of the bulk mesh (in µm)
         length_factor(float): Mesh element size is determined by curvature and then multipled with this factor
     """
+    # import gmsh
+    import gmsh
     
     # create subfolders to mesh path if they do not exist --------------------------------------------------------------
     os.makedirs(os.path.dirname(mesh_file), exist_ok=True)
@@ -106,6 +107,9 @@ def spherical_inclusion(mesh_file, r_inner=100, r_outer=20000, length_factor=0.2
         r_outer(float): Outer radius of the bulk mesh (in µm)
         length_factor(float): Mesh element size is determined by curvature and then multipled with this factor
     """
+    # import gmsh
+    import gmsh
+    
     # Build model (OpenCascade (for boolean operators) or built-in)
     model = gmsh.model
     factory = model.occ  # occ opencascade for boolean operations,  else (factory = model.geo)
@@ -185,6 +189,9 @@ def show_mesh(mesh_file):
     Args:
         mesh_file(str): File path to load mesh file
     """
+    # import gmsh
+    import gmsh
+    
     gmsh.initialize('', False)  # do not read in config files
     gmsh.open(mesh_file)
     gmsh.fltk.run()
