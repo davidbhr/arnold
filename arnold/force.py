@@ -58,8 +58,8 @@ def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer):
     bcond_y = np.array(bcond[:,1])
     bcond_z = np.array(bcond[:,2])
     #Scale quiver lengths
-    scalef = 1500 *1e6
-    scaleu = 3    *1e6
+    scalef = 1000
+    scaleu = 1
     scaleb = 1 
     scale_um = 1e6   # for axis in um
     # Deformationfield
