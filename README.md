@@ -119,13 +119,12 @@ material  ..   [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.
  
   * To define a non-linear elastic material by it's linear stiffness use:
 
-  * ```
-  * ar.materials. linear_stiffness()
-  * ```
+   ```
+  ar.materials. linear_stiffness()
+   ```
 
 
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To define a specific youngs modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use:
+  * To define a specific youngs modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use:
 
    ```
    ar.materials.youngs_modulus()
