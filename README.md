@@ -67,9 +67,9 @@ A typical measurement can look like the following: Muscle fibers are embedded in
 
 To measure the exerted muscle forces, we need the following information about the respective contraction: 
 
-- The fiber length and diameter in relaxed state (can easily be measured from the raw images). 
-- The strain during the contraction (derived as (Relaxed_Length- Contracted_Length)/Relaxed_Length) 
-- The material properties of the surrounding matrix (see below for further details)
+- The **fiber length** and diameter in relaxed state (can easily be measured from the raw images). 
+- The **strain** during the contraction (derived as (Relaxed_Length- Contracted_Length)/Relaxed_Length) 
+- The **material properties** of the surrounding matrix (see below for further details)
 
 
 
