@@ -159,7 +159,7 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     BOXMESH = 0
     FIBERPATTERNMATCHING = 0
     REL_CONV_CRIT = 1e-11
-    REL_ITERATIONS = 300
+    REL_ITERATIONS = 500
     REL_SOLVER_STEP = 0.066
     K_0 = {}
     D_0 = {}
