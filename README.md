@@ -107,7 +107,7 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 ```python
 ar.simulation.cylindric_contraction(simulation_folder=r'C/../Simulation', mesh_file=r'C/../Our_model.msh', 
-d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel10)
+d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel_10mg_ml)
 ```
 
 
@@ -116,10 +116,23 @@ d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel10)
 material  ..   [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
  "pre-configured" material types for collagen gels of three different concentrations (0.6, 1.2, and 2.4mg/ml). Detailed protocols for reproducing these gels can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685) and [Condor et al. (2017)](https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpcb.24). Furthermore, one can define a linear elastic material with a specified `stiffness` (in Pa) with:
 
+
+To define a non-linear elastic material by it's linear stiffness use:
+
+
 ```
-jf.materials.linear(stiffness)
+ar.materials. linear_stiffness()
 ```
-To define a non-linear elastic material, use the `custom` material type:
+
+
+To define a specific youngs modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use:
+
+```
+ar.materials.youngs_modulus()
+```
+
+To define non-lineear materials use the `custom` material type:
+
 ```
 jf.materials.custom(K_0, D_0, L_S, D_S)
 ```
@@ -188,4 +201,4 @@ series Evaluation
 *arnold* is tested on Python 3.6. It depends on .... All except ... are already included in the [Anaconda distribution](https://www.continuum.io/downloads) of Python. Windows users may also take advantage of pre-compiled binaries for all dependencies, which can be found at [Christoph Gohlke's page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
 
 ## License
-[The MIT License (MIT)](https://github.com/davidbhr/arnold/blob/master/LICENSE)
+The `arnold` package itself is licensed under the [MIT License](https://github.com/davidbhr/arnold/blob/master/LICENSE). Everything is provided "as is", without any warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
