@@ -142,6 +142,17 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     print('+ Created bcond.dat and iconf.dat')
     
     
+    #  Default values:
+    #
+    # REL_CONV_CRIT = 1e-11
+    # REL_ITERATIONS = 300
+    # REL_SOLVER_STEP = 0.066
+    #
+    # ToDo: Iterations and solver as function parameter
+    
+    
+    
+    
     # create config.txt -----------------------------------------------------------
     config = r"""
     MODE = relaxation
@@ -192,6 +203,9 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     print('+ Starting SAENO...')
     
     call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)))
+    
+    
+    
 
 
 
