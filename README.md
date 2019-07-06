@@ -111,10 +111,7 @@ d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel_10mg_ml)
 ```
 
 
-
-
-material  ..   [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
-  "pre-configured" material types for collagen gels of three different concentrations (0.6, 1.2, and 2.4mg/ml). Detailed protocols for reproducing these gels can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685) and [Condor et al. (2017)](https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpcb.24). Furthermore, one can define a linear elastic material with a specified `stiffness` (in Pa) with:
+The material properties can be defined as following: 
 
  
 - To define a non-linear elastic material by it's linear stiffness use:
@@ -129,7 +126,7 @@ ar.materials.youngs_modulus()
 
 - To define non-linear materials use the `custom` material type:
 ```python
-jf.materials.custom(K_0, D_0, L_S, D_S)
+ar.materials.custom(K_0, D_0, L_S, D_S)
 ```
 
 Non-linear materials are characterized by four parameters:
@@ -137,7 +134,20 @@ Non-linear materials are characterized by four parameters:
 - `D_0`: the rate of stiffness variation during fiber buckling
 - `L_S`: the onset strain for strain stiffening
 - `D_S`: the rate of stiffness variation during strain stiffening
-A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
+
+A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685). Also "pre-configured" material types for Matrigel (10mg/ml) and collagen gels of three different concentrations (0.6, 1.2, and 2.4mg/ml) are available. Detailed protocols for reproducing these gels can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685) and [Condor et al. (2017)](https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpcb.24). 
+
+
+```python
+ar.materials.collagen_06
+ar.materials.collagen_12
+ar.materials.collagen_24
+ar.materials.matrigel_10mg_ml
+```
+
+
+
+
 
 
 
