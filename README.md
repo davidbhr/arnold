@@ -117,23 +117,8 @@ material  ..   [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.
   "pre-configured" material types for collagen gels of three different concentrations (0.6, 1.2, and 2.4mg/ml). Detailed protocols for reproducing these gels can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685) and [Condor et al. (2017)](https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpcb.24). Furthermore, one can define a linear elastic material with a specified `stiffness` (in Pa) with:
 
  
-  * To define a non-linear elastic material by it's linear stiffness use:
+  * To define a non-linear elastic material by it's linear stiffness use `ar.materials.linear_stiffness()`. To define a specific youngs modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use `ar.materials.youngs_modulus()`. To define non-linear materials use the `custom` material type ` jf.materials.custom(K_0, D_0, L_S, D_S)`.
 
-   ```
-  ar.materials. linear_stiffness()
-   ```
-
-
-  * To define a specific youngs modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use:
-
-   ```
-   ar.materials.youngs_modulus()
-   ```
-  * (To define non-lineear materials use the `custom` material type:
-
-   ```
-   jf.materials.custom(K_0, D_0, L_S, D_S)
-   ```
    Non-linear materials are characterized by four parameters:
    - `K_0`: the linear stiffness (in Pa)
    - `D_0`: the rate of stiffness variation during fiber buckling
