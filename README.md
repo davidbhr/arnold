@@ -2,10 +2,12 @@
 
 Arnold is a python package to analyze muscle forces using 3D traction force microscopy. It provides interfaces to the open-source finite element mesh generator [`Gmsh`](http://gmsh.info/) and to the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). 
 
-By assuming a simple cylindircal geometry, traction forces can be computed for single fibers or a series of fibers by individual simulations. Fibers with different geometry can be evaluated for different strains and different tissue environments (linear and non-linear materials).
+By assuming a simple cylindircal geometry, traction forces can be computed for single fibers or a series of fibers by individual simulations. Fibers with different geometry can be evaluated for different contraction strains and different tissue environments (*linear* and *non-linear* materials).
 
 
 A scaling law, derived from such simulation in linear materials, enables computing forces just by the cell geometry, the strain and the material stiffness without the need of further individual simulations.
+
+
 
 
 
@@ -56,7 +58,7 @@ Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not
 
 ## Introduction
 
-A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to check that the fibers are attached to the matrix environment and in order to compare the simulated and measured matrix deformations.
+A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to validate that the fibers are attached to the matrix environment and in order to compare the simulated and measured matrix deformations.
 
 *In the Gif below a single flexor digitorum longus fiber embedded in matrigel is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaitons with frequencies ranging from 10 Hz to 100 Hz)*
 
@@ -65,9 +67,9 @@ A typical measurement can look like the following: Muscle fibers are embedded in
 
 To measure the exerted muscle forces, we need the following information about the respective contraction: 
 
-- The fiber length and diameter in relaxed state (can easily be measured from the raw images). 
-- The Strain (derived as (Relaxed_Length- Contracted_Length)/Relaxed_Length) 
-- The material properties of the surrounding matrix
+- The **fiber length** and diameter in relaxed state (can easily be measured from the raw images). 
+- The **strain** during the contraction (derived as (Relaxed_Length- Contracted_Length)/Relaxed_Length) 
+- The **material properties** of the surrounding matrix (see below for further details)
 
 
 
@@ -107,6 +109,9 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 ar.simulation.cylindric_contraction(simulation_folder=r'C/../Simulation', mesh_file=r'C/../Our_model.msh', 
 d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel10)
 ```
+
+
+
 
 material  ..   [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
  "pre-configured" material types for collagen gels of three different concentrations (0.6, 1.2, and 2.4mg/ml). Detailed protocols for reproducing these gels can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685) and [Condor et al. (2017)](https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpcb.24). Furthermore, one can define a linear elastic material with a specified `stiffness` (in Pa) with:
