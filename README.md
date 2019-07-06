@@ -128,14 +128,14 @@ ar.materials.linear_stiffness()
 ```python
 ar.materials.youngs_modulus()
 ````
-   To define non-linear materials use the `custom` material type:
+  * To define non-linear materials use the `custom` material type:
 
 ```python
 jf.materials.custom(K_0, D_0, L_S, D_S)
 ```
    Non-linear materials are characterized by four parameters:
-   -- `K_0`: the linear stiffness (in Pa)
-   -- `D_0`: the rate of stiffness variation during fiber buckling
+    * `K_0`: the linear stiffness (in Pa)
+   - `D_0`: the rate of stiffness variation during fiber buckling
    - `L_S`: the onset strain for strain stiffening
    - `D_S`: the rate of stiffness variation during strain stiffening
    
