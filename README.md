@@ -133,13 +133,13 @@ ar.materials.youngs_modulus()
 ```python
 jf.materials.custom(K_0, D_0, L_S, D_S)
 ```
-   Non-linear materials are characterized by four parameters:
- - `K_0`: the linear stiffness (in Pa)
- - `D_0`: the rate of stiffness variation during fiber buckling
- - `L_S`: the onset strain for strain stiffening
- - `D_S`: the rate of stiffness variation during strain stiffening
-   
-   A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685))
+
+Non-linear materials are characterized by four parameters:
+- `K_0`: the linear stiffness (in Pa)
+- `D_0`: the rate of stiffness variation during fiber buckling
+- `L_S`: the onset strain for strain stiffening
+- `D_S`: the rate of stiffness variation during strain stiffening
+A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)
 
 
 
