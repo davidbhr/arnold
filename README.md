@@ -114,14 +114,14 @@ d_cyl=30, l_cyl=300, r_outer=2000, strain=0.1, ar.materials.matrigel_10mg_ml)
 The material properties can be defined as following: 
 
  
-- To define a non-linear elastic material by it's linear stiffness use:
+- To define a non-linear elastic material by it's linear stiffness (for instance 1000 Pa) use:
  ```python
-ar.materials.linear_stiffness()
+ar.materials.linear_stiffness(1000)
 ```
 
-- To define a specific Young's modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use: 
+- To define a specific Young's modulus (for instance 500 Pa) for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use: 
 ```python
-ar.materials.youngs_modulus()
+ar.materials.youngs_modulus(500)
 ````
 
 - To define non-linear materials use the `custom` material type:
@@ -166,7 +166,7 @@ The results are stored in the set *simulation_folder*. For the nodes at the fibe
 ar.force.reconstruct_contractility(simulation_folder=r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
 ```
 
-In an excel document the resulting contractility is saved under *'Contractility mean x-components'*. Further, the contractility is calculated considering absolute forces instead of x-components and over left, right and total fiber. Additionally the residuum forces are calculated, which can check validity of simulation (forces at outer boundary must compensate for the forces within the mesh moddel). For visualization and possible error detection an image of the deformtion- and force-field is stored. 
+In an excel document the resulting contractility is saved under *'Contractility mean x-components'*. Further, the contractility is calculated considering the absolute forces instead of the x-components only and individually over the left half, the right half and total fiber volume. Additionally the residuum forces are calculated, which can be used to verify the simulation (forces at the outer boundary must compensate for the forces within the mesh moddel). For visualization and error detection an image of the deformtion- and force-field is stored. 
 
 
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Force_Displ_Field.png" width="400" >
