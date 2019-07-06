@@ -123,18 +123,17 @@ material  ..   [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.
 ar.materials.linear_stiffness()
 ```
 
-To define a specific youngs modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use 
+  * To define a specific youngs modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use 
 
 ```python
 ar.materials.youngs_modulus()
 ````
-To define non-linear materials use the `custom` material type:
+  * To define non-linear materials use the `custom` material type:
 
 ```python
 jf.materials.custom(K_0, D_0, L_S, D_S)
 ```
-
-   Non-linear materials are characterized by four parameters:
+  * Non-linear materials are characterized by four parameters:
    - `K_0`: the linear stiffness (in Pa)
    - `D_0`: the rate of stiffness variation during fiber buckling
    - `L_S`: the onset strain for strain stiffening
