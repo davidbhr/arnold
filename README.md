@@ -119,7 +119,7 @@ The material properties can be defined as following:
 ar.materials.linear_stiffness()
 ```
 
-- To define a specific youngs modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use 
+- To define a specific Young's modulus for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use: 
 ```python
 ar.materials.youngs_modulus()
 ````
@@ -151,7 +151,7 @@ ar.materials.matrigel_10mg_ml
 
 
 
-The results are stored in the given *simulation_folder*. For the set deformations at the fiber surface we obtain the respective forces, in the bulk material we obtain the corresponding deformations, which compensate for these forces. More information output files of a simulation can be found the [Wiki of the SAENO project](https://github.com/Tschaul/SAENO/wiki). The file `parameters.txt` contains all set parameters used in the simulation.
+The results are stored in the set *simulation_folder*. For the nodes at the fiber surface we obtain the respective forces, which compensate for the fiber deformation, for the nodes in the bulk material we obtain the deformations, which are thereby generated in the surrounding matrix. More information about the output files of a simulation can be found in the [Wiki of the SAENO project](https://github.com/Tschaul/SAENO/wiki). The file `parameters.txt` contains all set parameters, that are used in the simulation.
 
 
 
@@ -160,13 +160,13 @@ The results are stored in the given *simulation_folder*. For the set deformation
 
 
 
-*__Third__*, we compute the overall contractility from the resultin simulation (by summing up). 
+*__Third__*, we compute the overall contractility from the resulting simulation by summing up the x-components of all forces on the cell surface from one end of the fiber to its center.
 
 ```python
 ar.force.reconstruct_contractility(simulation_folder=r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
 ```
 
-We receive a excel document contrctilities. contractility mean x components gves us of contractility of muscefiber only taking x components into account (possible noise errors..) and half of cell (due magdeburger halkugeln..). Also store contractility derived from absolute vectors instead of x components and over whole area instead of half. Additionally residuum forces are calculated to check validity of simulation. For visualization and possible error detection an image of the deformtion and force field is stored. 
+In an excel document the resulting contractility is saved under *'Contractility mean x-components'*. Further, the contractility is calculated considering absolute forces instead of x-components and over left, right and total fiber. Additionally the residuum forces are calculated, which can check validity of simulation (forces at outer boundary must compensate for the forces within the mesh moddel). For visualization and possible error detection an image of the deformtion- and force-field is stored. 
 
 
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Force_Displ_Field.png" width="400" >
