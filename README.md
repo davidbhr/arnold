@@ -174,7 +174,7 @@ In an excel document the resulting contractility is saved under *'Contractility 
 
 
 
-*__All three abovementioned steps can be performed consecutively by using a single command. For an individual simulation just you just need to execute the combined function:__*
+*__All three abovementioned steps can be performed consecutively by using a single command. For an individual simulation you just need to execute the combined function:__*
 
 ```python
 
@@ -189,22 +189,43 @@ Note: *mesh_file* and *simulation_folder* now only describe the desired director
 
 ## Scaling law
 
-Scaling law explained
-Scaling law funtion 
+For linear-elastic materials, the total contractility of muscle fibers scales linearly with matrix elasticity, linearly with fiber strain,  quadratically with the fiber length and linearly with fiber diameter (see REF). Therefore we can estimate the contractility of a muscle fiber from the fiber geometrie (diameter d and length l of the relaxed fiber), the fiber strain 𝜖 during contraction, and the Young’s modulus E of the Matrix with a simple scaling law by comparison with reference simulation
 
-DOI
+```python
+
+ar.force.scaling_law(...)
+```
+
+
 
 ## Series
+by set of simulations..  for nonllineear materials different scaling. (ToDo).
 
-series types
+To start a series of simulation preset functions. to simulate fibers with differend diameter ´s for fixed strain etc use
 
-series Evaluation
+```python
+
+ar.experiment.series (..)
+```
+
+Here *n_cores* number of cores to start simulations in paralell (for no entry by default detect cores). In a similar manner series for different lengths `ar.experiment.series (..)`, different strains  `ar.experiment.series (..)` and different stiffness  `ar.experiment.series (..)` can be used.
+
+
+For all these again excel sheet with evaluated contractility within simulation folder. To compare several simulations in a more convenient way, the following funcion scans a given directiory (and all subdirecorys) for all simulations and creates an overview of the important values (cell geometrie strain etc..) from these.
+
+```python
+
+ar.experiment.evaluate (..)
+```
+
+
+BILD
 
 
 
 
 ## Dependencies
-*arnold* is tested on Python 3.6. It depends on .... All except ... are already included in the [Anaconda distribution](https://www.continuum.io/downloads) of Python. Windows users may also take advantage of pre-compiled binaries for all dependencies, which can be found at [Christoph Gohlke's page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
+*arnold* is tested on Python 3.6. It depends on `numpy`, `pandas`, `matplotlib` and XY. It is recommended to use the Anaconda distribution of Python. Windows users may also take advantage of pre-compiled binaries for all dependencies, which can be found at [Christoph Gohlke's page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
 
 ## License
 The `arnold` package itself is licensed under the [MIT License](https://github.com/davidbhr/arnold/blob/master/LICENSE). Everything is provided "as is", without any warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
