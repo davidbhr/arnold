@@ -189,7 +189,7 @@ Note: *mesh_file* and *simulation_folder* now only describe the desired director
 
 ## Scaling law
 
-For linear-elastic materials, the total contractility of muscle fibers scales linearly with matrix elasticity, linearly with fiber strain,  quadratically with the fiber length and linearly with fiber diameter (see REF). Therefore we can estimate the contractility of a muscle fiber from the fiber geometrie (diameter d and length l of the relaxed fiber), the fiber strain 𝜖 during contraction, and the Young’s modulus E of the Matrix with a simple scaling law by comparison with reference simulation
+For linear-elastic materials, the total contractility of muscle fibers scales linearly with matrix elasticity, linearly with fiber strain,  quadratically with the fiber length and linearly with fiber diameter (see REF). Therefore we can estimate the contractility of a muscle fiber from the fiber diameter `d`, fiber length `l`, the fiber strain `𝜖` during contraction, and the Young’s modulus `E` of the surrounding Matrix by comparison with a reference simulation by uing the following simple scaling law: 
 
 ```python
 
