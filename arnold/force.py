@@ -2,9 +2,9 @@ from __future__ import print_function, division
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import seaborn as sns
-sns.set_context('talk')
-sns.set_style('whitegrid')
+# import seaborn as sns
+# sns.set_context('talk')
+# sns.set_style('whitegrid')
 from matplotlib.ticker import FormatStrFormatter
 import pandas as pd
 
@@ -177,14 +177,14 @@ def scaling_law(d,l,s,E):
         d(float): Diameter of the cyldindric inclusion (muscle fiber) (in µm)
         l(float): Length of the cyldindric inclusion (muscle fiber) (in µm)
         s(float): Strain of the cylindric inclusion (e.g. muscle fiber) in percent 
-        (Derived as: [(length_relaxed - length_contracted)/(len_relaxed)] * 100 )
+        (Derived as: [(length_relaxed - length_contracted)/(len_relaxed)])
         E(float): Young's Modulus of the surrounding Material (in Pascal)
       
     """   
          
     d0 = 30.
     l0 = 300.
-    s0 = 10.  # in percent
+    s0 = 0.1 # equals 10%
     E0 = 200.  
             
     Contractility = (  4.553581636199e-07 * (E/E0) * (l/l0) * ((0.5 * l/l0) + ((0.5 *d/d0))) * (s/s0)) * 1e6          
