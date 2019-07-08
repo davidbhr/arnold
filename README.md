@@ -119,7 +119,7 @@ The material properties can be defined as following:
 ar.materials.linear_stiffness(1000)
 ```
 
-- To define a specific Young's modulus (for instance 500 Pa) for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs                 et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use: 
+- To define a specific Young's modulus (for instance 500 Pa) for a linear-elastic hydrogel (such as Matrigel) with a poission ratio of 0.25 (see  [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)) use: 
 ```python
 ar.materials.youngs_modulus(500)
 ````
@@ -199,23 +199,27 @@ ar.force.scaling_law(d,l,s,E)
 
 
 ## Series
-by set of simulations..  for nonllineear materials different scaling. (ToDo).
 
-To start a series of simulation preset functions. to simulate fibers with differend diameter ´s for fixed strain etc use
+Additionally, Series of simulations can be performed for different diameters, lengths, strains and materials.
+
+To start a series of simulation for a fixed fiber length, fixed strain and fixed stiffness for `n` fibers with diameters ranging from `d_cyl_min` to `d_cyl_max` in logarithmically spaced intervals, use:
 
 ```python
-
-ar.experiment.series (..)
+ar.experiment.simulation_series_diameter(d_cyl_min, d_cyl_max, l_cyl, n, r_outer, 
+length_factor, simulation_folder, strain, material,  log_scaling=True, n_cores=None, dec=2):
 ```
 
-Here *n_cores* number of cores to start simulations in paralell (for no entry by default detect cores). In a similar manner series for different lengths `ar.experiment.series (..)`, different strains  `ar.experiment.series (..)` and different stiffness  `ar.experiment.series (..)` can be used.
+Here *n_cores* defines the number of cores to run the simulations in paralell (for no entry the number of cores is detected by default) and `dec` defines the number of decimals for rounding. If `log_scaling` is `False`, linearly spaced intervals are used.
 
+In a similar manner series for different lengths `ar.experiment.imulation_series_lengths(..)`, different strains  `ar.experiment.imulation_series_strains(..)` and different stiffness `ar.experiment.imulation_series_stiffness(..)` can be used. 
 
-For all these again excel sheet with evaluated contractility within simulation folder. To compare several simulations in a more convenient way, the following funcion scans a given directiory (and all subdirecorys) for all simulations and creates an overview of the important values (cell geometrie strain etc..) from these.
+For all of these, an Excel sheet with evaluated contractility is created again in the simulation folder. 
+
+To compare several simulations in a more convenient way, the following function scans a given directiory (including all subdirectories) for simulations and creates an overview of the main values (cell geometry, strain, contractility, etc..) from these. We just need to insert the path and may add an comment, which is used to name the resulting Excel-sheet. An example of the resulting overview can be seen below.
+
 
 ```python
-
-ar.experiment.evaluate (..)
+ar.experiment.evaluate_series(path, comment='')
 ```
 
 
