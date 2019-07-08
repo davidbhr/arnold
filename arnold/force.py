@@ -6,7 +6,33 @@ from matplotlib.ticker import FormatStrFormatter
 import pandas as pd
 
 
-# Cylindric Inclusion --------------------------------------------------------------------------------------------------
+
+
+def scaling_law(d,l,s,E):
+    """
+    Reconstruct the contractility of a cylindric inclusion for different geometry, strain and material properties
+    
+    Args:
+        d(float): Diameter of the cyldindric inclusion (muscle fiber) (in µm)
+        l(float): Length of the cyldindric inclusion (muscle fiber) (in µm)
+        s(float): Strain of the cylindric inclusion (e.g. muscle fiber) in percent 
+        (Derived as: [(length_relaxed - length_contracted)/(len_relaxed)])
+        E(float): Young's Modulus of the surrounding Material (in Pascal)
+      
+    """   
+         
+    d0 = 30.
+    l0 = 300.
+    s0 = 0.1 # equals 10%
+    E0 = 200.  
+            
+    Contractility = (  4.553581636199e-07 * (E/E0) * (l/l0) * ((0.5 * l/l0) + ((0.5 *d/d0))) * (s/s0)) * 1e6          
+    
+    print ('Contractility = '+str(Contractility)+'µN')
+    return (Contractility)
+
+
+
 
 def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer):
     """
@@ -165,29 +191,6 @@ def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer):
     
     
 
-
-def scaling_law(d,l,s,E):
-    """
-    Reconstruct the contractility of a cylindric inclusion for different geometry, strain and material properties
-    
-    Args:
-        d(float): Diameter of the cyldindric inclusion (muscle fiber) (in µm)
-        l(float): Length of the cyldindric inclusion (muscle fiber) (in µm)
-        s(float): Strain of the cylindric inclusion (e.g. muscle fiber) in percent 
-        (Derived as: [(length_relaxed - length_contracted)/(len_relaxed)])
-        E(float): Young's Modulus of the surrounding Material (in Pascal)
-      
-    """   
-         
-    d0 = 30.
-    l0 = 300.
-    s0 = 0.1 # equals 10%
-    E0 = 200.  
-            
-    Contractility = (  4.553581636199e-07 * (E/E0) * (l/l0) * ((0.5 * l/l0) + ((0.5 *d/d0))) * (s/s0)) * 1e6          
-    
-    print ('Contractility = '+str(Contractility)+'µN')
-    return (Contractility)
 
 
 
