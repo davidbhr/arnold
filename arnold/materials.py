@@ -8,7 +8,6 @@ def linear_stiffness(stiffness):
     """
     return {'K_0': stiffness, 'D_0': 1e30, 'L_S': 1e30, 'D_S': 1e30}
 
-
     
 
 def youngs_modulus(youngs_modulus):

@@ -2,9 +2,6 @@ from __future__ import print_function, division
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-# import seaborn as sns
-# sns.set_context('talk')
-# sns.set_style('whitegrid')
 from matplotlib.ticker import FormatStrFormatter
 import pandas as pd
 
@@ -44,9 +41,9 @@ def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer):
     "Display Results in 3D Plot"
     fig1 = plt.figure()
     ax1 = Axes3D(fig1)
-    ax1.set_xlabel('X [\u03bcm]', labelpad=14, fontsize = 15)
-    ax1.set_ylabel('Y [\u03bcm]', labelpad=14, fontsize = 15)
-    ax1.set_zlabel('Z [\u03bcm]', labelpad=14, fontsize = 15)
+    ax1.set_xlabel('X [\u03bcm]', labelpad=6, fontsize = 13)
+    ax1.set_ylabel('Y [\u03bcm]', labelpad=6, fontsize = 13)
+    ax1.set_zlabel('Z [\u03bcm]', labelpad=6, fontsize = 13)
     # Display Deformation, Forces and selected Boundary
     u_x = np.array(U[:,0])
     u_y = np.array(U[:,1])
