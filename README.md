@@ -223,7 +223,7 @@ ar.experiment.evaluate_series(path, comment='')
 ```
 	
 
-<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Series_evaluation.png" width="900" >
+<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Series_evaluation.png" width="1200" >
 
 
 
