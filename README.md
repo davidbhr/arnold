@@ -62,7 +62,7 @@ A typical measurement can look like the following: Muscle fibers are embedded in
 
 *In the Gif below a single flexor digitorum longus fiber embedded in matrigel is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaitons with frequencies ranging from 10 Hz to 100 Hz)*
 
-![Loading GIF...]()
+![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
 
 
 To measure the exerted muscle forces, we need the following information about the respective contraction: 
