@@ -221,10 +221,9 @@ To compare several simulations in a more convenient way, the following function 
 ```python
 ar.experiment.evaluate_series(path, comment='')
 ```
+	
 
-
-BILD
-
+<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Series_evaluation.png" width="600" >
 
 
 
