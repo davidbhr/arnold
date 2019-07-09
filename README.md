@@ -60,7 +60,7 @@ Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not
 
 A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to validate that the fibers are attached to the matrix environment and in order to compare the simulated and measured matrix deformations.
 
-*In the Gif below a single flexor digitorum longus fiber embedded in matrigel is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaitons with frequencies ranging from 10 Hz to 100 Hz)*
+*In the Gif below a single flexor digitorum longus fiber embedded in matrigel is shown in the relaxed state and during different stimuli (single pulse stimulation and tetanic stimulaitons with frequencies ranging from 10 Hz to 100 Hz; Experiment conducted by Martin Rausch and Martin Steinmann)*
 
 ![Loading GIF...](https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/FDB_contraction(SP-10-25-50-75-100Hz).gif)
 
