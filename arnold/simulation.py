@@ -207,7 +207,7 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
         
         # create log file with system output
         logfile = open(simulation_folder + "/saeno_log.txt", 'w')
-        cmd = subprocess.Popen(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)     #, stdout=subprocess.PIPE,bufsize=1, universal_newlines=True)
+        cmd = subprocess.Popen(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
         # print and save a reduced version of saeno log
         for line in cmd.stdout:
             if not '%' in line:
