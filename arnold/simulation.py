@@ -44,7 +44,7 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     d_cyl *= 1e-6
     l_cyl *= 1e-6
     r_outer *= 1e-6
-    deformation = (strain*l_cyl)
+    deformation = strain*l_cyl
     
     
     # create data folder if they do not exist ------------------------------------------------------------------------------------------------  
