@@ -1,13 +1,12 @@
 import os
 import numpy as np
-from subprocess import call
 from arnold import SAENOPATH
-
+import subprocess
 
 
 # Cylindric Inclusion --------------------------------------------------------------------------------------------------
 
-def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material):
+def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):
     """
     Simulates an symetric contraction (with constant strain) of the cylindric inclusion inside the spherical bulk.
     
@@ -22,7 +21,13 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
         from which defomation-size decreases linearly to the center (symetric contraction with constant strain). 
         saeno (str): File path to Saeno.exe
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X} (see materials)
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.         
     """
+    
+
     
     # read in material parameters
     K_0 = material['K_0']
@@ -140,34 +145,23 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     iconf[mask_inner, 2] = ((coords[mask_inner][:,2])/(d_cyl/2))*dr
     np.savetxt(simulation_folder + '/iconf.dat', iconf)
     print('+ Created bcond.dat and iconf.dat')
-    
-    
-    #  Default values:
-    #
-    # REL_CONV_CRIT = 1e-11
-    # REL_ITERATIONS = 300
-    # REL_SOLVER_STEP = 0.066
-    #
-    # ToDo: Iterations and solver as function parameter
-    
-    
-    
+       
     
     # create config.txt -----------------------------------------------------------
     config = r"""
     MODE = relaxation
     BOXMESH = 0
     FIBERPATTERNMATCHING = 0
-    REL_CONV_CRIT = 1e-11
-    REL_ITERATIONS = 500
-    REL_SOLVER_STEP = 0.066
+    REL_CONV_CRIT = {}
+    REL_ITERATIONS = {}
+    REL_SOLVER_STEP = {}
     K_0 = {}
     D_0 = {}
     L_S = {}
     D_S = {}
     CONFIG = {}\config.txt
     DATAOUT = {}
-    """.format(K_0, D_0, L_S, D_S, simulation_folder, simulation_folder)
+    """.format(conv_crit, iterations, step, K_0, D_0, L_S, D_S, simulation_folder, simulation_folder)
     
     with open(simulation_folder + "/config.txt", "w") as f:
         f.write(config)
@@ -190,8 +184,13 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     strain = {}
     Inner node spacing = {}
     Outer node spacing = {}
+    iterations = {}
+    step = {}
+    conv_crit = {}
        
-    """.format(K_0, D_0, L_S, D_S, str(r_outer*1e6)+' µm', np.sum(mask_inner), len(coords), mesh_file, simulation_folder, str(d_cyl*1e6)+' µm', str(l_cyl*1e6)+' µm', str(deformation*1e6)+' µm',  str(strain), str(inner_spacing*1e6)+' µm',str(outer_spacing*1e6)+' µm')
+    """.format(K_0, D_0, L_S, D_S, str(r_outer*1e6)+' µm', np.sum(mask_inner), len(coords), mesh_file, simulation_folder, 
+    str(d_cyl*1e6)+' µm', str(l_cyl*1e6)+' µm', str(deformation*1e6)+' µm',  str(strain), str(inner_spacing*1e6)+' µm',
+    str(outer_spacing*1e6)+' µm', iterations, step, conv_crit)
     
 
     with open(simulation_folder + "/parameters.txt", "w") as f:
@@ -201,8 +200,33 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     # start SAENO ----------------------------------------------------------------------------------------------------------
     print ('SAENO Path: '+str(SAENOPATH))
     print('+ Starting SAENO...')
+ 
     
-    call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)))
+    # Create log file if activated
+    if logfile == True:
+        
+        # create log file with system output
+        logfile = open(simulation_folder + "/saeno_log.txt", 'w')
+        cmd = subprocess.Popen(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)     #, stdout=subprocess.PIPE,bufsize=1, universal_newlines=True)
+        # print and save a reduced version of saeno log
+        for line in cmd.stdout:
+            if not '%' in line:
+                print (line, end='')
+                logfile.write(str(line))
+        # close again to avoid loops            
+        cmd.stdout.close()            
+        
+    # if false just show the non reduced system output    
+    else:
+        cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
+    
+        
+
+    
+
+
+    
+    
     
     
     

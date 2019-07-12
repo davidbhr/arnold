@@ -30,7 +30,7 @@ def mesh_and_show(mesh_file, d_cyl, l_cyl, r_outer, length_factor=0.4):
     
     
 def cylindrical_inclusion_mesh_and_simulation(mesh_file, d_cyl, l_cyl, r_outer, length_factor, simulation_folder, 
-                                              strain, material):  
+                                              strain, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):  
     """
     Creates a spherical bulk mesh with a centered cylindrical inclusion and simulates a symetric contraction 
     (with constant strain) of the cylindric inclusion 
@@ -47,6 +47,10 @@ def cylindrical_inclusion_mesh_and_simulation(mesh_file, d_cyl, l_cyl, r_outer, 
         from which defomation-size decreases linearly to the center (symetric contraction with constant strain). 
         Deformation can be determed as (Length_base - Length_contracted) 
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X}, see materials)
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
     """
    
     
@@ -56,14 +60,15 @@ def cylindrical_inclusion_mesh_and_simulation(mesh_file, d_cyl, l_cyl, r_outer, 
     # wait a bit longer until mesh is stored 
     sleep(5)  
     
-    ar.simulation.cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material)
+    ar.simulation.cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material, 
+                                        logfile = logfile,  iterations= iterations , step=step, conv_crit = conv_crit)
    
     
     return
         
         
 def cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file, d_cyl, l_cyl, r_outer, length_factor, simulation_folder, 
-                                              strain, material):  
+                                              strain, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):  
     """
     Creates a spherical bulk mesh with a centered cylindrical inclusion and simulates a symetric contraction 
     (with constant strain) of the cylindric inclusion and computes the contractile forces.
@@ -79,6 +84,10 @@ def cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file, d_cyl, l_
         Deformation is applied in x-direction and split equally to both poles,
         from which defomation-size decreases linearly to the center (symetric contraction with constant strain). 
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X}, see materials)
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
     """
 
 
@@ -89,7 +98,8 @@ def cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file, d_cyl, l_
     sleep(5)  
     
     # start saeno simulation
-    ar.simulation.cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material)
+    ar.simulation.cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material,
+                                        logfile = logfile,  iterations= iterations , step=step, conv_crit = conv_crit)
     
     # wait a bit  
     sleep(1)  
@@ -101,7 +111,7 @@ def cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file, d_cyl, l_
         
 
 def cylindrical_inclusion_simulation_and_contractility(mesh_file, d_cyl, l_cyl, r_outer, simulation_folder, 
-                                              strain, material):  
+                                              strain, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):  
     """
     Simulates a symetric contraction (with constant strain) of the cylindric inclusion and
     computes the contractile forces.
@@ -116,10 +126,15 @@ def cylindrical_inclusion_simulation_and_contractility(mesh_file, d_cyl, l_cyl, 
         Deformation is applied in x-direction and split equally to both poles,
         from which defomation-size decreases linearly to the center (symetric contraction with constant strain). 
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X}, see materials)
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
     """
 
 
-    ar.simulation.cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material)
+    ar.simulation.cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material,
+                                        logfile = logfile,  iterations= iterations , step=step, conv_crit = conv_crit)
    
     ar.force.reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer)
     
@@ -127,7 +142,8 @@ def cylindrical_inclusion_simulation_and_contractility(mesh_file, d_cyl, l_cyl, 
         
 
 
-def simulation_series_lengths(d_cyl, l_cyl_min, l_cyl_max, n, r_outer, length_factor, simulation_folder, strain, material,  log_scaling=True, n_cores=None, dec=10):
+def simulation_series_lengths(d_cyl, l_cyl_min, l_cyl_max, n, r_outer, length_factor, simulation_folder, strain, material,  
+                              log_scaling=True, n_cores=None, dec=10, logfile = True,  iterations= 300 , step=0.3, conv_crit = 1e-11):
     """
     Starts a series of simulation for different fiber lengths and evaluates fiber contractility
     
@@ -146,6 +162,10 @@ def simulation_series_lengths(d_cyl, l_cyl_min, l_cyl_max, n, r_outer, length_fa
         n_cores(float): Amount of simultanious processes to be started, default detects the amount of CPU cores
         dec(int): Decimal value to round the lengths,  default is 10    
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X}, see materials)
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: True.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
     """
               
     
@@ -182,7 +202,9 @@ def simulation_series_lengths(d_cyl, l_cyl_min, l_cyl_max, n, r_outer, length_fa
         
         if len(processes) < n_cores:
 
-            command =  '''python -c "import arnold as ar; ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'{}',{},{},{},{},r'{}',{},{})"'''.format(simulation_folder+'\\'+str(L[0])+'.msh', d_cyl,  L[0], r_outer, length_factor, simulation_folder+'\\'+str(L[0]), strain, material)
+            command =  '''python -c "import arnold as ar; ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'{}',{},{},{},{},r'{}',{},{},{},{},{},{})"'''.format(simulation_folder+'\\'+str(L[0])+'.msh', d_cyl, 
+                                                                                                                                L[0], r_outer, length_factor, simulation_folder+'\\'+str(L[0]), strain, material,
+                                                                                                                                logfile, iterations , step, conv_crit )
                         
             processes.append(Popen(command))
 
@@ -194,7 +216,8 @@ def simulation_series_lengths(d_cyl, l_cyl_min, l_cyl_max, n, r_outer, length_fa
 
         
  
-def simulation_series_diameter(d_cyl_min, d_cyl_max, l_cyl, n, r_outer, length_factor, simulation_folder, strain, material,  log_scaling=True, n_cores=None, dec=2):
+def simulation_series_diameter(d_cyl_min, d_cyl_max, l_cyl, n, r_outer, length_factor, simulation_folder, strain, material,  
+                               log_scaling=True, n_cores=None, dec=2 , logfile = True,  iterations= 300 , step=0.3, conv_crit = 1e-11):
     """
     Starts a series of simulation for different fiber diameters and evaluates the fiber contractility
     
@@ -215,6 +238,10 @@ def simulation_series_diameter(d_cyl_min, d_cyl_max, l_cyl, n, r_outer, length_f
         n_cores(float): Amount of simultanious processes to be started, default detects the amount of CPU cores
         dec(int): Decimal value to round the lengths,  default is 10    
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X}, see materials)
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: True.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
     """
               
     
@@ -251,7 +278,9 @@ def simulation_series_diameter(d_cyl_min, d_cyl_max, l_cyl, n, r_outer, length_f
         
         if len(processes) < n_cores:
 
-            command =  '''python -c "import arnold as ar; ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'{}',{},{},{},{},r'{}',{},{})"'''.format(simulation_folder+'\\'+str(d[0])+'.msh', d[0],  l_cyl, r_outer, length_factor, simulation_folder+'\\'+str(d[0]), strain, material)
+            command =  '''python -c "import arnold as ar; ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'{}',{},{},{},{},r'{}',{},{},{},{},{},{})"'''.format(simulation_folder+'\\'+str(d[0])+'.msh', d[0],  l_cyl, r_outer,
+                                                                                                                                length_factor, simulation_folder+'\\'+str(d[0]), strain, material,
+                                                                                                                                logfile, iterations , step, conv_crit )
                         
             processes.append(Popen(command))
 
@@ -264,7 +293,8 @@ def simulation_series_diameter(d_cyl_min, d_cyl_max, l_cyl, n, r_outer, length_f
 
     
     
-def simulation_series_strain(d_cyl, l_cyl, n, r_outer, length_factor, simulation_folder, strain_min, strain_max, material,  log_scaling=True, n_cores=None, dec=2):
+def simulation_series_strain(d_cyl, l_cyl, n, r_outer, length_factor, simulation_folder, strain_min, strain_max, material,  
+                             log_scaling=True, n_cores=None, dec=2 , logfile = True,  iterations= 300 , step=0.3, conv_crit = 1e-11):
     """
     Starts a series of simulation for different cell lengths and evaluates cell contractility
     
@@ -285,6 +315,10 @@ def simulation_series_strain(d_cyl, l_cyl, n, r_outer, length_factor, simulation
         n_cores(float): Amount of simultanious processes to be started, default detects the amount of CPU cores
         dec(int): Decimal value to round the lengths,  default is 10    
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X}, see materials)
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: True.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
     """
      
 
@@ -319,7 +353,9 @@ def simulation_series_strain(d_cyl, l_cyl, n, r_outer, length_factor, simulation
         
         if len(processes) < n_cores:
 
-            command =  '''python -c "import arnold as ar; ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'{}',{},{},{},{},r'{}',{},{})"'''.format(simulation_folder+'\\'+str(e[0])+'.msh', d_cyl,  l_cyl, r_outer, length_factor, simulation_folder+'\\'+str(e[0]), e[0], material)
+            command =  '''python -c "import arnold as ar; ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'{}',{},{},{},{},r'{}',{},{},{},{},{},{})"'''.format(simulation_folder+'\\'+str(e[0])+'.msh', d_cyl,  l_cyl,
+                                                                                                                                r_outer, length_factor, simulation_folder+'\\'+str(e[0]), e[0], material,
+                                                                                                                                logfile, iterations , step, conv_crit )
                         
             processes.append(Popen(command))
 
@@ -331,7 +367,8 @@ def simulation_series_strain(d_cyl, l_cyl, n, r_outer, length_factor, simulation
     
     
    
-def simulation_series_stiffness(d_cyl, l_cyl, n, r_outer, length_factor, simulation_folder, strain, material_min, material_max,  log_scaling=True, n_cores=None, dec=2):
+def simulation_series_stiffness(d_cyl, l_cyl, n, r_outer, length_factor, simulation_folder, strain, material_min, material_max, 
+                                log_scaling=True, n_cores=None, dec=2 , logfile = True,  iterations= 300 , step=0.3, conv_crit = 1e-11):
     """
     Starts a series of simulation for different cell lengths and evaluates cell contractility
     
@@ -352,6 +389,10 @@ def simulation_series_stiffness(d_cyl, l_cyl, n, r_outer, length_factor, simulat
         dec(int): Decimal value to round the lengths,  default is 10    
         material_min (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X}, see materials) ranging from min K_0 stiffness to max K_0 stiffness
         material_max (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X}, see materials) ranging from min K_0 stiffness to max K_0 stiffness
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: True.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
     """
      
     
@@ -393,7 +434,9 @@ def simulation_series_stiffness(d_cyl, l_cyl, n, r_outer, length_factor, simulat
             
             
             material_min['K_0'] = str(k[0])
-            command =  '''python -c "import arnold as ar; ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'{}',{},{},{},{},r'{}',{},{})"'''.format(simulation_folder+'\\'+str(k[0])+'.msh', d_cyl,  l_cyl, r_outer, length_factor, simulation_folder+'\\'+str(k[0]), strain, material_min )
+            command =  '''python -c "import arnold as ar; ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(r'{}',{},{},{},{},r'{}',{},{},{},{},{},{})"'''.format(simulation_folder+'\\'+str(k[0])+'.msh', d_cyl, 
+                                                                                                                                l_cyl, r_outer, length_factor, simulation_folder+'\\'+str(k[0]), strain, material_min,
+                                                                                                                                logfile, iterations , step, conv_crit )
                         
             processes.append(Popen(command))
 
