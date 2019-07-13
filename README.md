@@ -58,7 +58,7 @@ Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not
 
 ## Introduction
 
-A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to validate that the fibers are attached to the matrix environment and in order to compare the simulated and measured matrix deformations.
+A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to validate that the fibers are attached to the matrix environment and to compare the simulated and measured matrix deformations.
 
 *In the Gif below a single flexor digitorum longus fiber embedded in matrigel is shown in the relaxed state and during different stimuli*
 
