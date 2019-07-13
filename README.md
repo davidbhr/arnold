@@ -183,7 +183,8 @@ ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file=
 d_cyl=30,l_cyl=300, r_outer=2000, length_factor=0.2, simulation_folder=r'C/../Simulation', 
 strain=0.1, ar.materials.matrigel10)
 ```
-Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. Additionally *logfile=True* can be used to store the saeno system output. The arguments *iterations*, *step* and *conv_crit* allow to adjust the maximal number of iteration, the step width and the convergence criterium for the saeno simulation (see [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)).
+Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. 
+
 
 
 ## Scaling law
@@ -226,8 +227,16 @@ ar.experiment.evaluate_series(path, comment='')
 
 
 
+## Adjusting Saeno Simulation
+
+The arguments *iterations*, *step* and *conv_crit* allow to adjust the maximal number of iteration, the step width and the convergence criterium for the saeno simulation (see [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)).
+
+Additionally *logfile=True* can be used to store the saeno system output in a text file.
+
+
+
 ## Dependencies
-*arnold* is tested on Python 3.6. It depends on `numpy`, `pandas`, `matplotlib` and XY. It is recommended to use the Anaconda distribution of Python. Windows users may also take advantage of pre-compiled binaries for all dependencies, which can be found at [Christoph Gohlke's page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
+*arnold* is tested on Python 3.6. It depends on `numpy`, `pandas`, `matplotlib` ,`os`, `time`,`__future__` and `subprocess`. It is recommended to use the Anaconda distribution of Python. Windows users may also take advantage of pre-compiled binaries for all dependencies, which can be found at [Christoph Gohlke's page](http://www.lfd.uci.edu/~gohlke/pythonlibs/).
 
 ## License
 The `arnold` package itself is licensed under the [MIT License](https://github.com/davidbhr/arnold/blob/master/LICENSE). Everything is provided "as is", without any warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose and noninfringement.
