@@ -183,9 +183,7 @@ ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file=
 d_cyl=30,l_cyl=300, r_outer=2000, length_factor=0.2, simulation_folder=r'C/../Simulation', 
 strain=0.1, ar.materials.matrigel10)
 ```
-Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. 
-
-
+Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. Additionally *logfile=True* can be used to store the saeno system output. The arguments *iterations*, *step* and *conv_crit* allow to adjust the maximal number of iteration, the step width and the convergence criterium for the saeno simulation (see [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)).
 
 
 ## Scaling law
