@@ -220,13 +220,8 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     else:
         cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
         
-        
-        
-        
-        
-        
-        
-        
+
+  
 # two point forces in certain distances --------------------------------------------------------------------------    
                 
 def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):
@@ -437,6 +432,14 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, 
     # if false just show the non reduced system output    
     else:
         cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
+        
+        
+        
+        
+        
+        
+        
+        
        
        
 
