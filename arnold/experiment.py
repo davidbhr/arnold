@@ -180,7 +180,7 @@ def simulation_series_lengths(d_cyl, l_cyl_min, l_cyl_max, n, r_outer, length_fa
    
     # List of lengths in linear steps to start simulation   
     else:
-        L = np.linspace(np.log10(l_cyl_min), np.log10(l_cyl_max), num=n, endpoint=True)
+        L = np.linspace(l_cyl_min, l_cyl_max, num=n, endpoint=True)
         
     # Limit decimal     
     L = np.around(L, decimals=dec)    
@@ -256,7 +256,7 @@ def simulation_series_diameter(d_cyl_min, d_cyl_max, l_cyl, n, r_outer, length_f
    
     # List of lengths in linear steps to start simulation   
     else:
-        d = np.linspace(np.log10(d_cyl_min), np.log10(d_cyl_max), num=n, endpoint=True)
+        d = np.linspace(d_cyl_min, d_cyl_max, num=n, endpoint=True)
         
     # Limit decimal     
     d = np.around(d, decimals=dec)    
@@ -333,7 +333,7 @@ def simulation_series_strain(d_cyl, l_cyl, n, r_outer, length_factor, simulation
    
     # List of lengths in linear steps to start simulation   
     else:
-        e = np.linspace(np.log10(strain_min), np.log10(strain_max), num=n, endpoint=True)
+        e = np.linspace(strain_min, strain_max, num=n, endpoint=True)
         
     # Limit decimal     
     e = np.around(e, decimals=dec)    
@@ -409,7 +409,7 @@ def simulation_series_stiffness(d_cyl, l_cyl, n, r_outer, length_factor, simulat
    
     # List of lengths in linear steps to start simulation   
     else:
-        k = np.linspace(np.log10(material_min['K_0']), np.log10(material_max['K_0']), num=n, endpoint=True)
+        k = np.linspace(material_min['K_0'], material_max['K_0'], num=n, endpoint=True)
         
     # Limit decimal     
     k = np.around(k, decimals=dec)    
