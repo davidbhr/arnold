@@ -19,7 +19,6 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
         strain(float): Strain as (Length_base - Length_contracted)/Length_base. 
         Deformation is applied in x-direction and split equally to both poles,
         from which defomation-size decreases linearly to the center (symetric contraction with constant strain). 
-        saeno (str): File path to Saeno.exe
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X} (see materials)
         logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
         iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
@@ -234,7 +233,6 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, 
         distance(float): Distance beetween the two point forces (in µm) 
         r_outer(float): Outer radius of the bulk mesh in the mesh model (in µm)
         displacement(float): Displacement of each point towards the center. Deformation is applied symetrically in x-direction. 
-        saeno (str): File path to Saeno.exe
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X} (see materials)
         logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
         iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
@@ -434,10 +432,180 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, 
         cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
         
         
+     
         
         
         
         
+        
+def spherical_contraction(meshfile, simulation_folder, pressure, material, r_inner=100, r_outer=20000, logfile = False, half_sphere = False, iterations= 300 , step=0.3, conv_crit = 1e-11):
+    """
+    Simulates an spherical contraction of the inner inclusion for a given pressure.
+    
+    Args:
+        simulation_folder(str): File path to save simulation results
+        mesh_file(str): File path to read in mesh file
+        r_inner(float): Radius of inner inclusion
+        r_outer(float): Outer radius of the bulk mesh in the mesh model (in µm)
+        pressure(float): Pressure that is applied on inner inclusion
+        saeno (str): File path to Saeno.exe
+        material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X} (see materials)
+        logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
+        iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
+        step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
+        half_sphere(boolean): If true all forces on spheroid a halved (to compare spheroid with half sphere)
+    """
+      
+    # open mesh file
+    with open(meshfile, 'r') as f:
+        lines = f.readlines()
+    
+    # scale radii to meter
+    r_inner *= 10**-6
+    r_outer *= 10**-6
+
+    # read in material parameters
+    K_0 = material['K_0']
+    D_0 = material['D_0']
+    L_S = material['L_S']
+    D_S = material['D_S']
+
+    # create output folder if it does not exist, print warning otherwise
+    if not os.path.exists(simulation_folder):
+        os.makedirs(simulation_folder)
+    else:
+        print('WARNING: Output folder already exists! ({})'.format(simulation_folder))
+
+    # transform nodes and connection in SAENO format
+    # nodes
+    index_nodes = lines.index('$Nodes\n')
+    n_nodes = int(lines[index_nodes + 1])
+
+    coords = np.zeros((n_nodes, 3))
+    for i in range(n_nodes):
+        coords[i] = np.array([np.float(x) for x in lines[i + index_nodes + 2].split()[1:]])
+    np.savetxt(simulation_folder + '/coords.dat', coords)
+
+    # connections
+    index_elements = lines.index('$Elements\n')
+    n_elements = int(lines[index_elements + 1])
+
+    tets = np.zeros((n_elements, 4))
+    for i in range(n_elements):
+        tets[i] = lines[i + index_elements + 2].split()[-4:]
+    np.savetxt(simulation_folder + '/tets.dat', tets, fmt='%i')
+
+    # define boundary conditions
+    distance = np.sqrt(np.sum(coords ** 2., axis=1))
+    mask_inner = distance < r_inner * 1.001
+    mask_outer = distance > r_outer * 0.999
+
+    # Save Node Density at inner and outer sphere
+    # Area per inner node
+    A_node_inner = (np.pi*4*(r_inner)**2)/np.sum(mask_inner) 
+    # simple sqrt as spacing
+    inner_spacing = np.sqrt(A_node_inner)    
+    
+    # Area per outer node
+    A_node_outer = (np.pi*4*(r_outer)**2)/np.sum(mask_outer)   
+    # simple sqrt as spacing
+    outer_spacing = np.sqrt(A_node_outer)
+    
+    print ('Inner node spacing: '+str(inner_spacing*1e6)+'µm')
+    print ('Outer node spacing: '+str(outer_spacing*1e6)+'µm')
+
+
+    bcond = np.zeros((len(coords), 4))
+    bcond[:, 3] = 1.
+
+    # fixed displacements for outer boundary
+    bcond[mask_outer, 3] = 0
+
+    # fixed non-zero force at spheroid surface
+    bcond[mask_inner, :3] = coords[mask_inner, :3]
+    bcond[mask_inner, :3] /= distance[mask_inner, None]
+
+    # halven forces if half sphere True
+    if half_sphere == True:
+
+        A_inner = 4 * np.pi * r_inner ** 2.
+        force_per_node = pressure * A_inner / np.sum(mask_inner)
+        bcond[mask_inner, :3] *= force_per_node/2
+     
+    # compute regular forces per node for a full sphere    
+    else:
+        A_inner = 4 * np.pi * r_inner ** 2.
+        force_per_node = pressure * A_inner / np.sum(mask_inner)
+        bcond[mask_inner, :3] *= force_per_node
+
+
+    np.savetxt(simulation_folder + '/bcond.dat', bcond)
+
+    # define initial configuration
+    iconf = np.zeros((len(coords), 3))
+    np.savetxt(simulation_folder + '/iconf.dat', iconf)
+
+    # create config file for SAENO
+    config = r"""MODE = relaxation
+    BOXMESH = 0
+    FIBERPATTERNMATCHING = 0
+    REL_CONV_CRIT = {}
+    REL_ITERATIONS = {}
+    REL_SOLVER_STEP = {}
+    K_0 = {}
+    D_0 = {}
+    L_S = {}
+    D_S = {}
+    CONFIG = {}\config.txt
+    DATAOUT = {}""".format(conv_crit, iterations, step, K_0, D_0, L_S, D_S, os.path.abspath(simulation_folder), os.path.abspath(simulation_folder))
+
+    with open(simulation_folder + "/config.txt", "w") as f:
+        f.write(config)
+
+    # create info file with all relevant parameters of the simulation
+    parameters = r"""K_0 = {}
+    D_0 = {}
+    L_S = {}
+    D_S = {}
+    PRESSURE = {}
+    FORCE_PER_SURFACE_NODE = {}
+    INNER_RADIUS = {} µm
+    OUTER_RADIUS = {} µm
+    INNER_NODE_SPACING = {} µm
+    OUTER_NODE_SPACING = {} µm
+    SURFACE_NODES = {}
+    TOTAL_NODES = {}
+    REL_CONV_CRIT = {}
+    REL_ITERATIONS = {}
+    REL_SOLVER_STEP = {}
+    half_sphere = {}""".format(K_0, D_0, L_S, D_S, pressure, force_per_node, r_inner*1e6 , r_outer*1e6 , inner_spacing*1e6, outer_spacing*1e6, np.sum(mask_inner), len(coords), conv_crit, iterations, step, half_sphere)
+
+    with open(simulation_folder + "/parameters.txt", "w") as f:
+        f.write(parameters)
+        
+        
+     # Create log file if activated
+    if logfile == True:
+        
+        # create log file with system output
+        logfile = open(simulation_folder + "/saeno_log.txt", 'w')
+        cmd = subprocess.Popen(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
+        # print and save a reduced version of saeno log
+        for line in cmd.stdout:
+            if not '%' in line:
+                print (line, end='')
+                logfile.write(str(line))
+        # close again to avoid loops            
+        cmd.stdout.close()            
+        
+    # if false just show the non reduced system output    
+    else:
+        cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)))   
+
+
+
+     
         
         
        
