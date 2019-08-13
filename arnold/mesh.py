@@ -495,8 +495,7 @@ def show_mesh(mesh_file):
     
     
 
-    
-# if __name__ == "__main__":
+
 
 
     
