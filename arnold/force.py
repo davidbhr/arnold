@@ -156,19 +156,21 @@ def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer):
     plt.savefig(simulation_folder+'\Deformation_Distance_Lin.png', format='png', dpi=700)
     plt.close()
 
+
     # Plot 3: Distance Deformation Curve --logscale
     fig4 = plt.figure()
+
+    print (np.min(v_plot))
 
     plt.scatter(u_plot, v_plot, lw=0, alpha=1, s=10, c='C2')
 
     plt.xscale('log')
     plt.yscale('log')
-    plt.ylim([10 ** -5 ])  # fixed, as autoscale does not work with log scale
+    plt.ylim(10**-10, np.max(v_plot)+10)  # fixed, as autoscale does not work with log scale
     plt.xlabel('Distance [µm]')
     plt.ylabel('Deformation [µm]')
     plt.savefig(simulation_folder + '\Deformation_Distance_Log.png', format='png', dpi=700)
     plt.close()
-
 
 
     "Compute Contractilities"
