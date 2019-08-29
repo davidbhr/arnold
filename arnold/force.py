@@ -139,10 +139,38 @@ def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer):
     plt.legend(fontsize = 15) 
     plt.savefig(simulation_folder+"\SplitForce_bcond.png")
     plt.close()
-    
-    
-    
-    
+
+
+
+
+    # Plot 3: Distance Deformation Curve --linscale
+    fig3 = plt.figure()
+
+    u_plot = np.sqrt(np.sum(coords ** 2., axis=1)) * 1e6
+    v_plot = np.sqrt(np.sum(U ** 2., axis=1)) * 1e6
+    plt.scatter(u_plot, v_plot, lw=0, alpha=1, s=10, c='C2')
+
+    plt.xlabel('Distance [µm]')
+    plt.ylabel('Deformation [µm]')
+
+    plt.savefig(simulation_folder+'\Deformation_Distance_Lin.png', format='png', dpi=700)
+    plt.close()
+
+    # Plot 3: Distance Deformation Curve --logscale
+    fig4 = plt.figure()
+
+    plt.scatter(u_plot, v_plot, lw=0, alpha=1, s=10, c='C2')
+
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.ylim([10 ** -5 ])  # fixed, as autoscale does not work with log scale
+    plt.xlabel('Distance [µm]')
+    plt.ylabel('Deformation [µm]')
+    plt.savefig(simulation_folder + '\Deformation_Distance_Log.png', format='png', dpi=700)
+    plt.close()
+
+
+
     "Compute Contractilities"
     # initialize result dictionary
     results = {'Contractility Absolute (left)': [], 'Contractility Absolute (right)': [],

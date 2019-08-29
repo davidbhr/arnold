@@ -223,16 +223,17 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
   
 # two point forces in certain distances --------------------------------------------------------------------------    
                 
-def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):
+def point_forces(simulation_folder, mesh_file, r_outer, distance, strain, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):
     """
     Simulates an symetric contraction (with constant strain) of the cylindric inclusion inside the spherical bulk.
     
     Args:
         simulation_folder(str): File path to save simulation results
         mesh_file(str): File path to read in mesh file
-        distance(float): Distance beetween the two point forces (in µm) 
+        distance(float): Desired distance beetween the two point forces (in µm). Closest possible points aresearched and distance is updated
         r_outer(float): Outer radius of the bulk mesh in the mesh model (in µm)
-        displacement(float): Displacement of each point towards the center. Deformation is applied symetrically in x-direction. 
+        strain(float):  Strain as (distance_base - dist_contracted)/dist_base. 
+        Deformation is applied in x-direction and split equally to both poles.
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X} (see materials)
         logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
         iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
@@ -255,7 +256,7 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, 
     #convert input in um------------------------------------------------------------------------------------------------
     r_outer *= 1e-6
     distance *= 1e-6
-    deformation = displacement*1e-6
+    #deformation = displacement*1e-6
     
     
     # create data folder if they do not exist ------------------------------------------------------------------------------------------------  
@@ -323,6 +324,12 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, 
     p2_z = z [mask_p2][0]
     print ('Set point 2 at: x='+str(p2_x)+', y='+str(p2_y)+', z='+str(p2_z))
     
+    # update new distance for the found points to have the correct strain 
+    distance = np.linalg.norm(np.array([p1_x,p1_y,p1_z])-np.array([p2_x,p2_y,p2_z]))
+    print ('Distance between found points is updated for correct strain. Distance: '+str(distance*1e6)+'µm')
+    
+    
+    
     
     mask_outer = distance_c > r_outer * 0.999  # include close elements to the boundary 
     
@@ -339,24 +346,40 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, 
     #set displ mode at both nodes (fixed displacements)
     bcond[mask_p1, 3] = 0   
     bcond[mask_p2, 3] = 0  
-        
+    
+    # total deformation
+    deformation = strain*distance
+    
+    
+    # project (0,0,x_defo) on the disctance vector because points are not perfectly alligned on xaxis
+    vec_ideal = np.array([deformation/2,0 ,0])   # ideal deformation in positive direction for negative point 2
+    vec_calc = np.array([p1_x,p1_y,p1_z])-np.array([p2_x,p2_y,p2_z]) #pointing in positive direction
+            
+    
+    projection = vec_calc * (vec_ideal @ vec_calc) / (vec_calc @ vec_calc)  # projection for p2 pointing in positive direction
+
+    
     #fixed displacements for both points directed to center 
-    bcond[mask_p1, 0] =   -deformation    
-    bcond[mask_p2, 0] =   +deformation    
-      
+    bcond[mask_p1, 0] =   -projection[0]
+    bcond[mask_p1, 1] =   -projection[1]
+    bcond[mask_p1, 2] =   -projection[2]
+    
+    bcond[mask_p2, 0] =   projection[0]
+    bcond[mask_p2, 1] =   projection[1]
+    bcond[mask_p2, 2] =   projection[2]
+
     
     #save bcond.dat
     np.savetxt(simulation_folder + '/bcond.dat', bcond)
     
     #create iconf
     iconf = np.zeros((len(coords), 3))
-    iconf[mask_p1, 0] =   -deformation    
-    iconf[mask_p2, 0] =   +deformation 
+    iconf[mask_p1, 0] =   -deformation/2    
+    iconf[mask_p2, 0] =   +deformation/2
     
 
-    # iconf[mask_inner, 0] = (-deformation/2) * (coords[mask_inner][:,0]/(l_cyl/2))
-    # iconf[mask_inner, 1] = ((coords[mask_inner][:,1])/(d_cyl/2))*dr
-    # iconf[mask_inner, 2] = ((coords[mask_inner][:,2])/(d_cyl/2))*dr
+
+    
     np.savetxt(simulation_folder + '/iconf.dat', iconf)
     print('+ Created bcond.dat')
       
@@ -392,7 +415,8 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, 
     Mesh_file = {}
     Output_folder = {}
     distance = {}
-    displacement = {}
+    strain = {}
+    total_deformation (half applied at each point) = {}
     point_1 =  {}
     point_2 =  {}
     iterations = {}
@@ -400,7 +424,7 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, displacement, 
     conv_crit = {}
       
     """.format(K_0, D_0, L_S, D_S, str(r_outer*1e6)+' µm',  len(coords), mesh_file, simulation_folder, 
-    str(distance*1e6)+' µm', str(displacement)+' µm', 
+    str(distance*1e6)+' µm', strain, deformation,
       'x='+str(p1_x)+', y='+str(p1_y)+', z='+str(p1_z) , 
       'x='+str(p2_x)+', y='+str(p2_y)+', z='+str(p2_z), 
       iterations, step, conv_crit)
