@@ -2,10 +2,13 @@
 
 Arnold is a python package to analyze muscle forces using 3D traction force microscopy. It provides interfaces to the open-source finite element mesh generator [`Gmsh`](http://gmsh.info/) and to the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). 
 
-By assuming a simple cylindircal geometry, traction forces can be computed for fibers with different geometries, different contractile strains and different tissue environments (*linear* and *non-linear* materials).
+By assuming a simple cylindircal geometry, traction forces can be computed for muscle fibers with different geometries, different contractile strains and different tissue environments (*linear* and *non-linear* materials).
 
 
 A scaling law, derived from such simulation in linear materials, enables computing forces just by the cell geometry, the strain and the material stiffness without the need of further individual simulations.
+
+See *Measurement of skeletal muscle fiber contractility with high-speed traction microscopy*
+doi: https://doi.org/10.1101/733451 
 
 
 
@@ -18,8 +21,6 @@ The current version of *arnold* can be installed by cloning this repository or b
 ```
 pip install -e . 
 ```
-
-
 
 
 Then the module can be simply imported to python as following
@@ -38,10 +39,10 @@ GMSH offers a python interface within the `Gmsh SDK` , that can be downloaded [h
 or by simply running the following command: `pip install --upgrade gmsh-sdk`.
 
 
-To find the equilibrium configuration to the applied boundary problem *arnold* uses the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). A precompiled version of `SAENO` for 64bit Windows systems can be downloaded [here](https://github.com/davidbhr/arnold/tree/master/docs/SAENO). To build SAENO on other platforms the project can be found [here](https://github.com/Tschaul/SAENO).
+To find the equilibrium configuration for the applied boundary problem *arnold* uses the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). A precompiled version of `SAENO` for 64bit Windows systems can be downloaded [here](https://github.com/davidbhr/arnold/tree/master/docs/SAENO). To build SAENO on other platforms the project can be found [here](https://github.com/Tschaul/SAENO).
 
 
-Now we need to tell arnold  where `Gmsh` and `SAENO` are stored for one single time. Therefore we simply use:
+Now we need to tell Arnold one-time where `Gmsh` and `SAENO` are stored. Therefore we simply use:
 
 ```python
 import arnold as ar
@@ -58,7 +59,7 @@ Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not
 
 ## Introduction
 
-A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy using a high framerate. Beads are embedded to validate that the fibers are attached to the matrix environment and to compare the simulated and measured matrix deformations.
+A typical measurement can look like the following: Muscle fibers are embedded into a certain matrix environment (e.g. matrigel). Then a contraction is induced via electical stimulation. The deformation can be imaged e.g. via confocal, fluorescence or brightfield microscopy. Beads are embedded into the surrounding matrix to validate that the fibers are attached to the matrix environment and to trace the matrix deformations.
 
 *In the Gif below a single flexor digitorum longus fiber embedded in matrigel is shown in the relaxed state and during different stimuli*
 
@@ -68,7 +69,7 @@ A typical measurement can look like the following: Muscle fibers are embedded in
 
 To measure the exerted muscle forces, we need the following information about the respective contraction: 
 
-- The **fiber length** and diameter in relaxed state (can easily be measured from the raw images). 
+- The **fiber length** and **fiber diameter** in relaxed state (can easily be measured from the raw images). 
 - The **strain** during the contraction (derived as (Relaxed_Length- Contracted_Length)/Relaxed_Length) 
 - The **material properties** of the surrounding matrix (see below for further details)
 
@@ -195,6 +196,10 @@ For linear-elastic materials, the total contractility of muscle fibers scales li
 
 ar.force.scaling_law(d,l,s,E)
 ```
+
+
+..add formula here..
+
 
 
 
