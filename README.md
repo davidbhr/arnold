@@ -7,6 +7,8 @@ By assuming a simple cylindircal geometry, traction forces can be computed for m
 
 A scaling law, derived from such simulation in linear materials, enables computing forces just by the cell geometry, the strain and the material stiffness without the need of further individual simulations.
 
+More detailed information can be found in the article: *[Measurement of skeletal muscle fiber contractility with high-speed traction microscopy]*(https://www.biorxiv.org/content/10.1101/733451v1) (doi: https://doi.org/10.1101/733451)
+
 
 ## Installation
 
