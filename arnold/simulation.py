@@ -223,17 +223,18 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
   
 # two point forces in certain distances --------------------------------------------------------------------------    
                 
-def point_forces(simulation_folder, mesh_file, r_outer, distance, strain, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):
+def point_forces(simulation_folder, mesh_file, r_outer, distance, strain, material, logfile = True,  iterations= 300 , step=0.3, conv_crit = 1e-11):
     """
-    Simulates an symetric contraction (with constant strain) of the cylindric inclusion inside the spherical bulk.
+    Simulates an symetric contraction (with constant strain) of two nodes inside the spherical bulk. 
+    Finds nodes matching best to given distance and updates strain accordingly.
     
     Args:
         simulation_folder(str): File path to save simulation results
         mesh_file(str): File path to read in mesh file
-        distance(float): Desired distance beetween the two point forces (in µm). Closest possible points aresearched and distance is updated
+        distance(float): Desired distance beetween the two point forces (in µm). Closest possible points are searched and distance is updated
         r_outer(float): Outer radius of the bulk mesh in the mesh model (in µm)
         strain(float):  Strain as (distance_base - dist_contracted)/dist_base. 
-        Deformation is applied in x-direction and split equally to both poles.
+        Deformation is applied on the axis between the 2 nodes split equally to both poles.
         material (dict): Material properties in the form {'K_0': X, 'D_0':X, 'L_S': X, 'D_S': X} (see materials)
         logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
         iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
@@ -454,12 +455,8 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, strain, materi
     # if false just show the non reduced system output    
     else:
         cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
-        
-        
      
-        
-        
-        
+  
         
         
 def spherical_contraction(meshfile, simulation_folder, pressure, material, r_inner=100, r_outer=20000, logfile = False, half_sphere = False, iterations= 300 , step=0.3, conv_crit = 1e-11):
