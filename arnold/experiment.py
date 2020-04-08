@@ -68,7 +68,7 @@ def cylindrical_inclusion_mesh_and_simulation(mesh_file, d_cyl, l_cyl, r_outer, 
         
         
 def cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file, d_cyl, l_cyl, r_outer, length_factor, simulation_folder, 
-                                              strain, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11):  
+                                              strain, material, logfile = False,  iterations= 300 , step=0.3, conv_crit = 1e-11,  scalef = 1000, scaleu = 1, scaleb = 1):  
     """
     Creates a spherical bulk mesh with a centered cylindrical inclusion and simulates a symetric contraction 
     (with constant strain) of the cylindric inclusion and computes the contractile forces.
@@ -87,7 +87,10 @@ def cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file, d_cyl, l_
         logfile(boolean): If True a reduced logfile of the saeno system output is stored. Default: False.
         iterations(float): The maximal number of iterations for the saeno simulation. Default: 300.
         step(float): Step width parameter for saeno regularization. Higher values lead to a faster but less robust convergence. Default: 0.3.
-        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.      
+        conv_crit(float): Saeno stops if the relative standard deviation of the residuum is below given threshold. Default: 1e-11.  
+        scalef ,scalu, scaleb: To scale the arrows for deformation , force and 
+        boundary cond. in quiver plot - only visually no impact on valeus
+         
     """
 
 
@@ -102,10 +105,10 @@ def cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file, d_cyl, l_
                                         logfile = logfile,  iterations= iterations , step=step, conv_crit = conv_crit)
     
     # wait a bit  
-    sleep(1)  
+    sleep(3)  
    
     # compute individual contractilities
-    ar.force.reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer)
+    ar.force.reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer,  scalef = scalef, scaleu = scaleu, scaleb = scaleu)
     
     return
         
