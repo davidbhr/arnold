@@ -231,10 +231,10 @@ def sphere(mesh_file, r_outer=20000, length_factor=0.2):
     # Optimize the mesh to improve the quality of tetrahedral elements, Default value: 1
     gmsh.option.setNumber("Mesh.Optimize", 1)
 
-    # Optimize tetrahedra that have a quality below ...,  Default value: 0.3       
+    # # Optimize tetrahedra that have a quality below ...,  Default value: 0.3       
     gmsh.option.setNumber("Mesh.OptimizeThreshold", 0.3)
     
-    # Optimize the mesh using Netgen to improve the quality of tetrahedral elements, Default value: 0
+    # # Optimize the mesh using Netgen to improve the quality of tetrahedral elements, Default value: 0
     gmsh.option.setNumber("Mesh.OptimizeNetgen", 1)
     
     
@@ -261,7 +261,8 @@ def sphere(mesh_file, r_outer=20000, length_factor=0.2):
     
         
     # Define Physical Group (to apply boundary conditions later-on)
-    model.addPhysicalGroup(3,[2], 3)  # (dim, tags, newtag)
+    model.addPhysicalGroup(3,[2], 3)  # (dim, tags, newtag) 
+    
     
     #Synchronize and generate mesh
     factory.synchronize()
