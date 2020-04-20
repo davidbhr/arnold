@@ -181,13 +181,14 @@ def click_length(img_path, out= None, scale = None):
         print(length)
         if out:
             np.savetxt(out+'\length_um.txt',[length])
-            fig.savefig(out+'\length_clicked.png',dpi=200)
+        
+            fig.savefig(out+'\length_clicked.png',dpi=150, bbox_inches='tight', pad_inches=0)
     else:
         length = np.round(np.sqrt((roi1.x[0]-roi1.x[1])**2+(roi1.y[0]-roi1.y[1])**2) * 1 )  
         print(length)
         if out:
             np.savetxt(out+'\length_px.txt',[length])
-            fig.savefig(out+'\length_clicked.png',dpi=200)
+            fig.savefig(out+'\length_clicked.png',dpi=150, bbox_inches='tight', pad_inches=0)
     plt.close()  
 
     return length
