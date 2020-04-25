@@ -188,9 +188,6 @@ Note: *mesh_file* and *simulation_folder* now only describe the desired director
 Additionally *logfile=True* can be used to store the saeno system output in a text file. 
 
 
-## Different geometries
-
-ToDo .. add dipole + sphere ( + evaluation function )
 
 ## Scaling law 
 
@@ -228,6 +225,11 @@ ar.experiment.evaluate_series(path, comment='')
 	
 
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Series_evaluation.png" width="1200" >
+
+## Different geometries
+
+ToDo .. add dipole + sphere ( + evaluation function )
+
 
 
 ## Image 
