@@ -59,7 +59,7 @@ A application of arnold can look like the following measurement: Muscle fibers a
 *In the Gif below a single flexor digitorum longus fiber embedded in matrigel is shown in the relaxed state and during different electrical stimuli*
 
 
-<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/FDB_contraction(SP-10-25-50-75-100Hz).gif" width="200" >
+<img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/FDB_contraction(SP-10-25-50-75-100Hz).gif" width="300" >
 
 
 To measure the exerted muscle forces, we need the following information about the respective contraction and model an analogous experiment using a cylindrical inclusion:
@@ -70,7 +70,7 @@ To measure the exerted muscle forces, we need the following information about th
 
 
 
->For further applications anrold offers different geometries such as spheres or dipoles. Image processing functions may be used to create the maximum projection from 3D stacks and extract deformation using particle image velocity (OpenPiv) or by manual clicking lengths. With these information, SAENO simulations can be started. In addition also a full 3D regularization of all deformations from two given input stacks (in  relaxed and contracted state) can be started. In the following, the method is described using cylindrical geometry
+>**For further applications anrold offers different geometries such as spheres or dipoles. Image processing functions may be used to create the maximum projection from 3D stacks and extract deformation using particle image velocity (OpenPiv) or by manual clicking lengths. With these information, SAENO simulations can be started. In addition also a full 3D regularization of all deformations from two given input stacks (in  relaxed and contracted state) can be started. In the following, the method is described using cylindrical geometry**
 
 
 
