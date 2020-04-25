@@ -1,9 +1,8 @@
 # arnold
 
-Arnold is a python package to analyze muscle forces using 3D traction force microscopy. It provides interfaces to the open-source finite element mesh generator [`Gmsh`](http://gmsh.info/) and to the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). 
+Arnold is a python package to analyze cellular forces using 3D traction force microscopy. It provides interfaces to the open-source finite element mesh generator [`Gmsh`](http://gmsh.info/) and to the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). 
 
-By assuming a simple cylindircal geometry, traction forces can be computed for muscle fibers with different geometries, different contractile strains and different tissue environments (*linear* and *non-linear* materials).
-
+By assuming a simple cylindircal geometry, traction forces can be computed for example for muscle fibers with different geometries, different contractile strains and different tissue environments (*linear* and *non-linear* materials).
 
 A scaling law, derived from such simulation in linear materials, enables computing forces just by the cell geometry, the strain and the material stiffness without the need of further individual simulations.
 
