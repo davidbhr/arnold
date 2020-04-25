@@ -99,7 +99,7 @@ ar.mesh.show_mesh(r'C/../Our_model.msh')
 
 
 
-*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. We read in the *mesh_file* and apply a symetrical contraction with the given *strain* on the inner cylindrical inclusion with specific length *l_cyl* and diameter *d_cyl*. At the outer boundary of the bulk material we constrain the deformations to zero.
+*__Second__*, we apply corresponding boundary condition to our mesh and simulate the contraction of the cylinder using the network optimizer SAENO. We read in the *mesh_file* and apply a symetrical contraction with the given *strain* on the inner cylindrical inclusion with specific length *l_cyl* and diameter *d_cyl*. At the outer boundary of the bulk material we constrain the deformations to zero. 
 
 
 ```python
@@ -179,11 +179,15 @@ ar.experiment.cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file=
 d_cyl=30,l_cyl=300, r_outer=2000, length_factor=0.2, simulation_folder=r'C/../Simulation', 
 strain=0.1, ar.materials.matrigel10)
 ```
-Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. 
+Note: *mesh_file* and *simulation_folder* now only describe the desired directory and are created and used automatically. The arguments *iterations*, *step* and *conv_crit* allow to adjust the maximal number of iteration, the step width and the convergence criterium for the saeno simulation (see [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)).
+Additionally *logfile=True* can be used to store the saeno system output in a text file. 
 
 
+## Different geometries
 
-## Scaling law
+ToDo .. add dipole + sphere ( + evaluation function )
+
+## Scaling law 
 
 For linear-elastic materials, the total contractility of muscle fibers scales linearly with matrix elasticity, linearly with fiber strain,  quadratically with the fiber length and linearly with fiber diameter (see  the article: **[Measurement of skeletal muscle fiber contractility with high-speed traction microscopy](https://www.biorxiv.org/content/10.1101/733451v1)** for more detailed information). Therefore we can estimate the contractility of a muscle fiber from the fiber diameter `d`, fiber length `l`, the fiber strain `s` during contraction (equals ε in the formula), and the Young’s modulus `E` of the surrounding Matrix by comparison with a reference simulation (denoted with zero subscripts) by uing the following simple scaling law (returns the contractility in µN): 
 
@@ -221,12 +225,22 @@ ar.experiment.evaluate_series(path, comment='')
 <img src="https://raw.githubusercontent.com/davidbhr/arnold/master/docs/PNGs/Series_evaluation.png" width="1200" >
 
 
+## Image 
 
-## Adjusting Saeno Simulation
+ToDo: Tools for imageprocessing:  maxprojection - 2d piv to extract deformations - length to click cell deformation
 
-The arguments *iterations*, *step* and *conv_crit* allow to adjust the maximal number of iteration, the step width and the convergence criterium for the saeno simulation (see [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685)).
+may be used to project 3d deformations into 2d and start simulation .. (e.g. dipole ...)
 
-Additionally *logfile=True* can be used to store the saeno system output in a text file.
+
+##  3D Regularization
+
+ToDo: Tools to start a SAENO  3D regularization of contracted relaxed stack  by X . 
+
+Show and filter deformations by Y,Z    (add image)
+
+Start simulation from files e.g. filtered deformation by X
+
+On some systems problems with input images as .tif, therefore converted to png by using X
 
 
 
