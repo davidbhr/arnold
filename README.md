@@ -1,8 +1,8 @@
 # arnold
 
-Arnold is a python package to analyze cellular forces using 3D traction force microscopy. It provides interfaces to the open-source finite element mesh generator [`Gmsh`](http://gmsh.info/) and to the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). 
+Arnold is a python package to analyze cellular forces using 3D traction force microscopy. It provides interfaces to the open-source finite element mesh generator [`Gmsh`](http://gmsh.info/) and to the network optimizer [`SAENO`](https://github.com/Tschaul/SAENO). Image processing functions can be used to extract matrix deformations. These deformations and the respective material properties can be transferred to a simulation based on simple geometries (cylinder, sphere, dipole).
 
-By assuming a simple cylindircal geometry, traction forces can be computed for example for muscle fibers with different geometries, different contractile strains and different tissue environments (*linear* and *non-linear* materials).
+By assuming a simple cylindircal geometry, traction forces can for example be computed for muscle fibers with different geometries, different contractile strains and different tissue environments (*linear* and *non-linear* materials).
 
 A scaling law, derived from such simulation in linear materials, enables computing forces just by the cell geometry, the strain and the material stiffness without the need of further individual simulations.
 
@@ -69,7 +69,7 @@ To measure the exerted muscle forces, we need the following information about th
 
 
 
->**For further applications anrold offers different geometries such as spheres or dipoles. Image processing functions may be used to create  maximum projections from 3D stacks and extract deformations by using particle image velocity (OpenPiv) or by manual clicking lengths. With these information, SAENO simulations with individual geometry can be started. In addition also a full 3D regularization of all deformations from two given input stacks (in  relaxed and contracted state) can be started. In the following, the method is first described by using cylindrical geometry**
+>**For further applications arnold offers different geometries such as spheres or dipoles. Image processing functions may be used to create  maximum projections from 3D stacks and extract deformations by using particle image velocity (OpenPiv) or by manual clicking lengths. With these information, SAENO simulations with individual geometry can be started. In addition also a full 3D regularization of all deformations from two given input stacks (in  relaxed and contracted state) can be started. In the following, the method is first described by using cylindrical geometry**
 
 
 
