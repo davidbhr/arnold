@@ -215,7 +215,7 @@ In a similar manner series for different lengths `ar.experiment.imulation_series
 
 For all of these, an Excel sheet with evaluated contractility is created again in the simulation folder. 
 
-To compare several simulations in a more convenient way, the following function scans a given directiory (including all subdirectories) for simulations and creates an overview of the main values (cell geometry, strain, contractility, etc..) from these. We just need to insert the path and may add an comment, which is used to name the resulting Excel-sheet. An example of the resulting overview can be seen below.
+To compare several simulations in a more convenient way, the following function scans a given directiory (including all subdirectories) for simulations and creates an overview of the main values (cell geometry, strain, contractility, etc..). We just need to insert the path and may add an comment, which is used to name the resulting Excel-sheet. An example of the resulting overview can be seen below.
 
 
 ```python
