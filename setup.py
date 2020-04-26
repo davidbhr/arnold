@@ -10,7 +10,7 @@ setup(
     url='',
     download_url = '',
     author='David Böhringer, Christoph Mark',
-    author_email='davidboehringe@gmail.com',
+    author_email='david.boehringer@fau.de',
     license='The MIT License (MIT)',
     install_requires=['numpy>=1.16.2',
                       'pandas>=0.23.4',
