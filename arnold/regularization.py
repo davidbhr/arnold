@@ -94,9 +94,7 @@ def regularization_stacks(simulation_folder,    # path to output folder
     # create outputfolder if not exists---------------------------------------
     if not os.path.exists(simulation_folder):
      os.makedirs(simulation_folder)
-     
-     
-     
+ 
      
     # automatic parameter adjustment if chosen--------------------------------- 
      
@@ -207,65 +205,77 @@ def regularization_stacks(simulation_folder,    # path to output folder
     subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
     return
 
-# Testing 
-
-# stacka =  r"\\131.188.117.96\biophysDS\dboehringer\Platte_4\Measurements_NK_TFM\2019-10-15_Konfokal-Primarynk\nk21-1_zoom6_eval\88\Series088_t14_z*_ch00.tif"
-# stackb = r"\\131.188.117.96\biophysDS\dboehringer\Platte_4\Measurements_NK_TFM\2019-10-15_Konfokal-Primarynk\nk21-1_zoom6_eval\89_rel\Series089_t12_z*_ch00.tif"
-# out= r"\\131.188.117.96\biophysDS\dboehringer\Platte_4\Eval-data\Example-Data-test\nk-testing\2019-10-15-nk21-series88\out-arnold-test"
-
-# regularization_stacks(out,stacka,stackb,    
-#                     K_0=1645,              # material properties for simulation
-#                     L_S=0.0075, 
-#                     D_0=0.0008,
-#                     D_S=0.033, 
-#                     voxelsize_x=0.241e-6,     # voxelsize ( in m - e.g use formt like 0.3611e-6 )
-#                     voxelsize_y=0.241e-6,
-#                     voxelsize_z=1.007e-6, 
-#                     AUTOMATIC_Drift_Values = True,  # if True these are chosen automatically                  
-#                     AUTOMATIC_BM_Values = True,    # if True these are chosen automatically
-#                                 )
 
 
 
 
-def display_displacements():
+
+def display_displacements(simulation_folder, lower_percentile=0, upper_percentile=100, save_plot = True):
     """
     show the total displacement field or the masked range of displacements by size
+    simulation_folder: path to simulation folder
+    lower_percentile and upper_percentile give range of deformationsize which is used
+    as a mask 
+    save_plot: option to save the plot to the simulation folder
+    
+    To increase plotting speed you might increase the lower percentile (e.g 30 instead 0)
+
     """
+    # load in deformations and coordinates
+    r =  np.genfromtxt(os.path.join(simulation_folder, "R.dat"))       # positions
+    u =  np.genfromtxt(os.path.join(simulation_folder, "Ufound.dat"))     #deformations  
+    uabs = np.sqrt(np.sum(u ** 2., axis=1))   # absolute values for filtering
+    #S = np.genfromtxt('../Sfound.dat')          # accuracy of deformations
+
+    # filter displacements by absolute size
+    mask = (uabs > np.percentile(uabs, lower_percentile)) & (uabs < np.percentile(uabs, upper_percentile))
+    r2 = r[mask]
+    u2 = u[mask]
+    uabs2 = uabs[mask]
     
+    # plot the masked deformation
+    fig = plt.figure()
+    ax1 = fig.gca(projection='3d', label='fitted-displ', rasterized=True)
+
+    color_bounds1 =  np.array([np.percentile(uabs2, 0), np.percentile(uabs2, 100)]) * 10 ** 6  #[0, 2.5]  #
     
+    u_scale = 1.0e-06/np.median(uabs2)
     
+    np.random.seed(1234)
+    for r2i, u2i, uabs2i in tqdm(zip(r2 * 10 ** 6, u2 * 10 ** 6, uabs2 * (10 ** 6)*u_scale)):
+        # if np.random.uniform(0, 1) < 0.2:  # uabs2i/u_upper:
+        color = plt.cm.jet(((uabs2i - color_bounds1[0]) / (color_bounds1[1] - color_bounds1[0])))
+        alpha = 1. - (r2i[0] - r2i[1]) / (270. * 0.5)
     
+        if alpha > 1:
+            alpha = 1.
+        if alpha < 0:
+            alpha = 0.
     
+        plt.quiver(r2i[0], r2i[1], r2i[2], u2i[0], u2i[1], u2i[2], length=uabs2i * 4,
+                   color=color, arrow_length_ratio=0, alpha=alpha, pivot='tip', linewidth=0.5)
     
+    #ax1.set_xlim([-135, 135])
+    #ax1.set_ylim([-135, 135])
+    #ax1.set_zlim([-135, 135])
+    #ax1.set_xticks([-100, -50, 0, 50, 100])
+    #ax1.set_yticks([-100, -50, 0, 50, 100])
+    #ax1.set_zticks([-100, -50, 0, 50, 100])
+    #ax1.set_xticklabels(['']*5)
+    #ax1.set_yticklabels(['']*5)
+    #ax1.set_zticklabels(['']*5)
+    ax1.w_xaxis.set_pane_color((0.2, 0.2, 0.2, 1.0))
+    ax1.w_yaxis.set_pane_color((0.2, 0.2, 0.2, 1.0))
+    ax1.w_zaxis.set_pane_color((0.2, 0.2, 0.2, 1.0))
     
+    if save_plot:
+        plt.savefig( os.path.join(simulation_folder,'deformations_plot_lower_{}_upper_{}.png'.format(lower_percentile, upper_percentile)), dpi=600 )
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+     
     return
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 def filter_displacements():
     """
@@ -316,6 +326,57 @@ def force_displacement_fields():
     visualizes and saves the force and displacement field of a simulation
     """
     return
+
+
+if __name__ == "__main__":    
+    
+    
+    # Test display stacks
+    #display_displacements(r"\\131.188.117.96\biophysDS\dboehringer\Platte_4\Eval-data\Example-Data-test\nk-testing\2019-10-15-nk21-series88\out-arnold-test", 30,100)    
+    display_displacements(r"\\131.188.117.96\biophysDS\dboehringer\Platte_4\Eval-data\Example-Data-test\nk-testing\2019-10-15-nk21-series88\out-arnold-test", 0,99.7) 
+    
+    
+    
+    
+    
+    # Test regularization_stacks
+    
+    # stacka =  r"\\131.188.117.96\biophysDS\dboehringer\Platte_4\Measurements_NK_TFM\2019-10-15_Konfokal-Primarynk\nk21-1_zoom6_eval\88\Series088_t14_z*_ch00.tif"
+    # stackb = r"\\131.188.117.96\biophysDS\dboehringer\Platte_4\Measurements_NK_TFM\2019-10-15_Konfokal-Primarynk\nk21-1_zoom6_eval\89_rel\Series089_t12_z*_ch00.tif"
+    # out= r"\\131.188.117.96\biophysDS\dboehringer\Platte_4\Eval-data\Example-Data-test\nk-testing\2019-10-15-nk21-series88\out-arnold-test"
+    
+    # regularization_stacks(out,stacka,stackb,    
+    #                     K_0=1645,              # material properties for simulation
+    #                     L_S=0.0075, 
+    #                     D_0=0.0008,
+    #                     D_S=0.033, 
+    #                     voxelsize_x=0.241e-6,     # voxelsize ( in m - e.g use formt like 0.3611e-6 )
+    #                     voxelsize_y=0.241e-6,
+    #                     voxelsize_z=1.007e-6, 
+    #                     AUTOMATIC_Drift_Values = True,  # if True these are chosen automatically                  
+    #                     AUTOMATIC_BM_Values = True,    # if True these are chosen automatically
+#                                 )
+    
+    
+    
+    
+    
+    
+    
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #   stack a  \\131.188.117.96\biophysDS\dboehringer\Platte_4\Measurements_NK_TFM\2019-10-15_Konfokal-Primarynk\nk21-1_zoom6_eval\88\Series088_t14_z*_ch00.tif
