@@ -136,7 +136,8 @@ Non-linear materials are characterized by four parameters:
 - `L_S`: the onset strain for strain stiffening
 - `D_S`: the rate of stiffness variation during strain stiffening
 
-A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685). Also "pre-configured" material types for Matrigel (10mg/ml) and collagen gels of three different concentrations (0.6, 1.2, and 2.4mg/ml) are available. Detailed protocols for reproducing these gels can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685) and [Condor et al. (2017)](https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpcb.24). 
+A full description of the non-linear material model and the parameters can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685). Also "pre-configured" material types for Matrigel (10mg/ml) and collagen gels of three different concentrations (0.6, 1.2, and 2.4mg/ml) are available. Detailed protocols for reproducing these gels can be found in [Steinwachs et al. (2016)](https://www.nature.com/articles/nmeth.3685) and [Condor et al. (2017)](https://currentprotocols.onlinelibrary.wiley.com/doi/abs/10.1002/cpcb.24). Parameters for individual non-linear materials can be obtained by performing and fitting rheometer experiments with Saenopy as described [here](https://saenopy.readthedocs.io/en/latest/fit_material_parameters.html).  
+
 
 
 ```python
