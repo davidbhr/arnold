@@ -271,4 +271,62 @@ def leica_projections(experiment_list, output_folder, zrange=None):
     return
 
 
+def video_maker(files,output, fps=15, no_dir=False):
+    """
+    creates a video for given files (path in the "glob" for example r"C/User/cell1/*.tiff")
     
+    files: list of imagepaths for the video (see above)
+    output: directiory to store the .mp4 video
+    fps: framerate for the video
+    no_dir: if True directories are not created automatically
+    """
+    # create outputfolder if not exists
+    if not no_dir:
+        if not os.path.exists(output):
+         os.makedirs(output)      
+    # read in files with glob 
+    file_list = glob.glob(files)
+    # create video
+    writer = imageio.get_writer(output+'.mp4', fps=fps)
+    for im in file_list:
+        writer.append_data(imageio.imread(im))
+    writer.close()    
+    return
+    
+
+def leica_video_maker(leicamaxpath, output=None, fps = 15):
+
+    """
+    creates videos of all cells from the output folder of leica_projections.  
+    just uses video_maker  for the special data structure
+       
+
+    input: output folder of leica_projections containing all subfodlers
+    output: fodler containing all videos - by default created in input folder
+    fps: framerate for videos        
+  
+    """
+    if not output:
+        output = os.path.join(leicamaxpath, "videos")
+
+    # all maxproj series from subfolders    
+    vid_list =  glob.glob(leicamaxpath+"\*\Pos*\*")    
+    # loop through series
+    for v in tqdm(vid_list):
+        # create subfolder for experiment
+        out = os.path.join(output,v.split(os.path.sep)[-3])  
+        # create if not exiting
+        if not os.path.exists(out):
+            os.makedirs(out)  
+        # and add right filename with full information
+        out_vid = os.path.join(out, v.split(os.path.sep)[-2]+"_"+v.split(os.path.sep)[-1])
+        # make video from tiff images
+        video_maker(v+"\*.tif" ,out_vid, fps=fps, no_dir=True)
+
+      
+    return  
+        
+        
+        
+        
+        
