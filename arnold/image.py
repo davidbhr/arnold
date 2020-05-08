@@ -273,7 +273,7 @@ def leica_projections(experiment_list, output_folder, zrange=None):
 
 def video_maker(files,output, fps=15, no_dir=False):
     """
-    creates a video for given files (path in the "glob" for example r"C/User/cell1/*.tiff")
+    creates a video for given files (path in the "glob"-structure  for example r"C/User/cell1/*.tiff")
     
     files: list of imagepaths for the video (see above)
     output: directiory to store the .mp4 video
@@ -301,7 +301,7 @@ def leica_video_maker(leicamaxpath, output=None, fps = 15):
     just uses video_maker  for the special data structure
        
 
-    input: output folder of leica_projections containing all subfodlers
+    leicamaxpath: output folder of leica_projections containing all subfodlers
     output: fodler containing all videos - by default created in input folder
     fps: framerate for videos        
   
