@@ -7,6 +7,10 @@ import imageio
 from PIL import Image
 import os
 import roipoly
+import glob as glob
+from tqdm import tqdm
+
+
 
 
 # maximum projections
@@ -193,6 +197,78 @@ def click_length(img_path, out= None, scale = None):
 
     return length
 
+
+
+
+def leica_projections(experiment_list, output_folder, zrange=None):
+    """
+    specially tailored to leica software data structure - creates individual maximum projections for several mark and find experiments 
+    (stacks of several positions for several time steps stored in several sub-series)
+    Fixed for 2 channels (ch00 + ch01) here
+    
+    
+    experiment_list: list of all mark_and_find experiments to be evaluated (can contain several subseries)
+                     e.g.    [r"..\data\Sample_1",  r"..\data\Sample_2"] where Sample_1 contains Mark_and_Find_001, Mark_and_Find_002 etc..
+    
+    output_folder: to store output projections - subfolder are created automatically
+    
+    zrange: range of images around stack center for the maximum projection
+    """
+                     
+    # create outputfolder if not exists
+    if not os.path.exists(output_folder):
+     os.makedirs(output_folder)                                         
+    # loop through all experiments
+    for exp in (experiment_list):
+            print ("Current:"+str(exp))
+            data_ch00 = glob.glob(exp+"\*\*ch00.tif")  # read in imagedata also containing all subseries 
+            data_ch01 = glob.glob(exp+"\*\*ch01.tif")  # read in imagedata also containing all subseries 
+            # find the number of subseries for this expereiment
+            number_series = np.max([int(os.path.split(os.path.split(data_ch00[i])[0])[1][-3:]) for i in range(len(data_ch00))])  # second las entry mark and find number
+            print("Subseries found: "+str(number_series))
+            # loop through subseries (counting from 1)
+            for n in tqdm(range(1,number_series+1)): 
+                print ("Suberies number: "+str(n))
+                # mask all data of subseries
+                mask_subseries =  "Mark_and_Find_{}".format(str(n).zfill(3))  
+                subseries_ch00 =  [x for x in data_ch00 if mask_subseries in x] 
+                subseries_ch01 =  [x for x in data_ch01 if mask_subseries in x]
+                # find maximum position of the series
+                position_list = set([int(str.split((os.path.split(os.path.split(subseries_ch00[i])[1])[1]), "_")[0][3:]) for i in range(len(subseries_ch00))])
+                print ("Positions found: "+ str(position_list))
+                # loop through positions
+                for z in (position_list):
+                    # reduce subseries to individual positions postion
+                    mask_position =  "Pos{}".format(str(z).zfill(3))  #starts from 1
+                    subseries_pos_ch00 =  [x for x in subseries_ch00 if mask_position in x] 
+                    subseries_pos_ch01 =  [x for x in subseries_ch01 if mask_position in x]
+                    # find maximum timestep of the eries
+                    t_list = [int(str.split((os.path.split(os.path.split(subseries_pos_ch00[i])[1])[1]), "_")[2][1:]) for i in range(len(subseries_pos_ch00))]
+                    max_t = np.max(t_list)  
+                    print ("Timesteps found: "+ str(max_t))
+                    # create maximumprojection for each time step
+                    for t in (range(max_t+1)):
+                        # stacks ch00 and ch01 ot make the current maxproj
+                        if max_t<10:
+                            stack_data_ch00 = [x for x in subseries_pos_ch00 if "t{}".format(str(t).zfill(0)) in x]
+                            stack_data_ch01 = [x for x in subseries_pos_ch01 if "t{}".format(str(t).zfill(0)) in x]
+                        if max_t>=10:
+                            stack_data_ch00 = [x for x in subseries_pos_ch00 if "t{}".format(str(t).zfill(2)) in x]
+                            stack_data_ch01 = [x for x in subseries_pos_ch01 if "t{}".format(str(t).zfill(2)) in x]
+                            
+                        # nameing for current stacks
+                        current_experiment = os.path.basename(exp)
+                        upper = os.path.split(os.path.split(stack_data_ch00[0])[0])[1]
+                        name =  os.path.split(stack_data_ch00[0])[1][:-14] 
+                        
+                        #current subfolder
+                        exp_folder = os.path.join(output_folder,current_experiment)
+                        Pos_folder = os.path.join(exp_folder,"Pos{}".format(str(z).zfill(3)))
+       
+                        # make the projection
+                        projections(stack_data_ch00, os.path.join(Pos_folder,"ch00_zrange_{}".format(zrange)), upper+"_"+name, zrange=zrange)
+                        projections(stack_data_ch01, os.path.join(Pos_folder,"ch01_zrange_{}".format(zrange)), upper+"_"+name, zrange=zrange)
+    return
 
 
     
