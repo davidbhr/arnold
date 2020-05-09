@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 
 # maximum projections
-def projections(files, output, name, zrange=None, mode="max", percentile_mode =99):
+def projections(files, output, name, zrange=None, mode="max", percentile_mode =99.5):
     """
     Compute and store maximum intensity projections of a given stack to combine z information within a single image
     
