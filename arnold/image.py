@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 
 # maximum projections
-def projections(files, output, name, zrange=None):
+def projections(files, output, name, zrange=None, mode="max", percentile_mode =99):
     """
     Compute and store maximum intensity projections of a given stack to combine z information within a single image
     
@@ -23,7 +23,8 @@ def projections(files, output, name, zrange=None):
     name: name of output projection image
     zrange: Defines the number of imgas around the z-plane which are combined within the  output
         default is None, which combines all input data (if overexposed might use as smaller z_range)
-    
+    projection: different mode for "max", "mean", "median" and "percentile"
+    percentile_mode: percentile for projection -  only valid if mode = percentile
     """
     
     stacksize = len(files)
@@ -49,13 +50,30 @@ def projections(files, output, name, zrange=None):
     # limit z range
     images_array = images_array[zmin:zmax,:,:]
     
-    max_proj = np.max(images_array,axis=0)
-    im = Image.fromarray(max_proj)
-    filename = 'maxproj_' + str(name) + '.tif'
+    # make the chosen projection
+    if mode == "max":
+        proj = np.max(images_array,axis=0)
+    if mode == "percentile":
+        proj = np.percentile(images_array, percentile_mode, axis=0)
+    if mode == "mean":    
+        proj = np.mean(images_array,axis=0)  
+    if mode == "median":       
+        proj = np.median(images_array,axis=0)
+
+    im = Image.fromarray(proj)
+    if mode == "max":
+       filename = 'maxproj_' + str(name) + '.tif'
+    if mode == "percentile":
+        filename = 'percentile_'+ str(percentile_mode)+"_" + str(name) + '.tif'
+    if mode == "mean":    
+        filename = 'meanproj_' + str(name) + '.tif'
+    if mode == "median":       
+        filename = 'mdianproj_' + str(name) + '.tif'
+    
     savepath = os.path.join(output, filename)
     im.save(savepath)
 
-    return  max_proj
+    return  proj
 
 
 
@@ -200,7 +218,7 @@ def click_length(img_path, out= None, scale = None):
 
 
 
-def leica_projections(experiment_list, output_folder, zrange=None):
+def leica_projections(experiment_list, output_folder, zrange=None, mode="max", percentile_mode=99):
     """
     specially tailored to leica software data structure - creates individual maximum projections for several mark and find experiments 
     (stacks of several positions for several time steps stored in several sub-series)
@@ -266,8 +284,8 @@ def leica_projections(experiment_list, output_folder, zrange=None):
                         Pos_folder = os.path.join(exp_folder,"Pos{}".format(str(z).zfill(3)))
        
                         # make the projection
-                        projections(stack_data_ch00, os.path.join(Pos_folder,"ch00_zrange_{}".format(zrange)), upper+"_"+name, zrange=zrange)
-                        projections(stack_data_ch01, os.path.join(Pos_folder,"ch01_zrange_{}".format(zrange)), upper+"_"+name, zrange=zrange)
+                        projections(stack_data_ch00, os.path.join(Pos_folder,"ch00_zrange_{}".format(zrange)), upper+"_"+name, zrange=zrange, mode=mode, percentile_mode =percentile_mode)
+                        projections(stack_data_ch01, os.path.join(Pos_folder,"ch01_zrange_{}".format(zrange)), upper+"_"+name, zrange=zrange, mode=mode,  percentile_mode =percentile_mode)
     return
 
 
@@ -294,7 +312,7 @@ def video_maker(files,output, fps=15, no_dir=False):
     return
     
 
-def leica_video_maker(leicamaxpath, output=None, fps = 15):
+def leica_video_maker(leicamaxpath, output=None, fps = 12):
 
     """
     creates videos of all cells from the output folder of leica_projections.  
