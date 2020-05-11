@@ -236,6 +236,8 @@ ToDo .. add dipole + sphere ( + evaluation function )
 
 ToDo: Tools for imageprocessing:  maxprojection - 2d piv to extract deformations - length to click cell deformation
 
+install openpiv if for function XY
+
 may be used to project 3d deformations into 2d and start simulation .. (e.g. dipole ...)
 
 
