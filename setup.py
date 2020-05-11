@@ -13,9 +13,9 @@ setup(
     author_email='david.boehringer@fau.de',
     license='The MIT License (MIT)',
     install_requires=['numpy>=1.16.2',
-                      'pandas>=0.23.4',
+                      'pandas>=0.20',
                       'matplotlib>=2.2.2',
-					  'roipoly>=0.5.2'
+					  'roipoly>=0.5'
                       'pillow>=7.0.0'
                       'tqdm>=4.44.1'],
     keywords = ['muscle', 'contractility', 'material simulation', 'Traction Force Microscopy'],

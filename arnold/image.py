@@ -1,6 +1,5 @@
 import os
 import numpy as np
-from openpiv import tools, process, validation, filters, scaling 
 import numpy as np
 import matplotlib.pyplot as plt
 import imageio
@@ -93,6 +92,9 @@ def piv_analysis( contr,relax, outfolder,scale, winsize_um = 10 , drift_correcti
                 Default is None meaning automatically scaling ,  scale is inverse
   
     """ 
+	from openpiv import tools, process, validation, filters, scaling 
+	
+	
     winsize = int(winsize_um/scale)  # for pixel 
     
     # odd winsize raise problems due to the overlap, thefore decrease by one pixel if odd and give warning
