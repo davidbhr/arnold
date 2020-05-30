@@ -77,7 +77,7 @@ def projections(files, output, name, zrange=None, mode="max", percentile_mode =9
 
 
 
-def piv_analysis( contr,relax, outfolder,scale, winsize_um = 10 , drift_correction =True, threshold=1.2, scale_quiver=None):
+def piv_analysis( contr,relax, outfolder,scale, winsize_um = 10 , overlap_um =None, searchsize_um = None, drift_correction =True, threshold=1.2, scale_quiver=None):
     """
     Computes deformations between 2 images by crosscorrelation using openpiv (must be installed - see Readme).
     Saves several quiver plots and the maximal found deformation for later analysis.
@@ -93,10 +93,22 @@ def piv_analysis( contr,relax, outfolder,scale, winsize_um = 10 , drift_correcti
   
     """ 
     from openpiv import tools, process, validation, filters, scaling 
-	
-	
+
+
     winsize = int(winsize_um/scale)  # for pixel 
     
+     # if not specified use defaults
+    if not overlap_um:
+        overlap = winsize/2
+    else:
+        overlap = int(overlap_um/scale)
+        
+    if not searchsize_um:
+        searchsize = 2*winsize
+    else:
+        searchsize = int(searchsize_um/scale)
+    
+    print (winsize,overlap,searchsize)
     # odd winsize raise problems due to the overlap, thefore decrease by one pixel if odd and give warning
     if not (winsize % 2) == 0:
         print('Odd pixelnumbers raise problems due to the overlap: Winsize changed to '+str( (winsize-1) * scale) +' um')
@@ -113,10 +125,7 @@ def piv_analysis( contr,relax, outfolder,scale, winsize_um = 10 , drift_correcti
     # convert for openpiv
     relax =  relax.astype(np.int32)
     contr =  contr.astype(np.int32)
-    
-    #winsize = 60 # pixels
-    searchsize = winsize  # pixels, search in image B
-    overlap = winsize/2 #pixels
+  
     dt = 1 # sec
 
     u0, v0, sig2noise = process.extended_search_area_piv( relax , contr, window_size=winsize, 
@@ -131,6 +140,12 @@ def piv_analysis( contr,relax, outfolder,scale, winsize_um = 10 , drift_correcti
     
     # filtered deformations
     u1, v1, mask = validation.sig2noise_val( u0, v0, sig2noise, threshold = threshold)
+    
+    # save deformations + coords
+    np.save(outfolder+"/u.npy", u1) 
+    np.save(outfolder+"/v.npy", v1) 
+    np.save(outfolder+"/x.npy", x) 
+    np.save(outfolder+"/y.npy", y) 
     
     # show filtered+unfiltered data    
     plt.figure(figsize=(6,3))
@@ -202,17 +217,24 @@ def click_length(img_path, out= None, scale = None):
     # calculate and save length + plot - if no scale given pixel values instead of um
     if scale:
         length = np.round(np.sqrt((roi1.x[0]-roi1.x[1])**2+(roi1.y[0]-roi1.y[1])**2) * scale)  # convert to um with pxsize
+        length_px = np.round(np.sqrt((roi1.x[0]-roi1.x[1])**2+(roi1.y[0]-roi1.y[1])**2) * 1 )  
+        center= (0.5*(roi1.x[0]+roi1.x[1]), 0.5*(roi1.y[0]+roi1.y[1]))
+        print (center)
         print(length)
         if out:
             np.savetxt(out+'\length_um.txt',[length])
-        
+            np.savetxt(out+'\length_px.txt',[length_px])
+            np.savetxt(out+'\center_xy_px.txt',[center])
+            np.savetxt(out+'\scale.txt',[scale])
             fig.savefig(out+'\length_clicked.png',dpi=150, bbox_inches='tight', pad_inches=0)
     else:
         length = np.round(np.sqrt((roi1.x[0]-roi1.x[1])**2+(roi1.y[0]-roi1.y[1])**2) * 1 )  
+        center= (0.5*(roi1.x[0]+roi1.x[1]), 0.5*(roi1.y[0]+roi1.y[1]))
         print(length)
         if out:
             np.savetxt(out+'\length_px.txt',[length])
             fig.savefig(out+'\length_clicked.png',dpi=150, bbox_inches='tight', pad_inches=0)
+            np.savetxt(out+'\center_xy_px.txt',[center])
     plt.close()  
 
     return length

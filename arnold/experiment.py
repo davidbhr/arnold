@@ -94,17 +94,17 @@ def cylindrical_inclusion_mesh_simulation_and_contractility(mesh_file, d_cyl, l_
     """
 
 
-    # build mesh
+    #build mesh
     ar.mesh.cylindrical_inclusion(mesh_file, d_cyl, l_cyl, r_outer, length_factor)   
     
-    # wait a bit longer until mesh is stored 
+    #wait a bit longer until mesh is stored 
     sleep(5)  
     
-    # start saeno simulation
+    #start saeno simulation
     ar.simulation.cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, strain, material,
                                         logfile = logfile,  iterations= iterations , step=step, conv_crit = conv_crit)
     
-    # wait a bit  
+    #wait a bit  
     sleep(3)  
    
     # compute individual contractilities

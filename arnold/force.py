@@ -136,7 +136,7 @@ def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer,   scalef
     ax2.zaxis.set_major_formatter(FormatStrFormatter('%3.0f')) 
     
     plt.legend(fontsize = 15) 
-    plt.savefig(simulation_folder+"\SplitForce_bcond.png")
+    plt.savefig(simulation_folder+"\\SplitForce_bcond.png")
     plt.close()
 
 
@@ -144,31 +144,25 @@ def reconstruct_contractility(simulation_folder, d_cyl, l_cyl, r_outer,   scalef
 
     # Plot 3: Distance Deformation Curve --linscale
     fig3 = plt.figure()
-
     u_plot = np.sqrt(np.sum(coords ** 2., axis=1)) * 1e6
     v_plot = np.sqrt(np.sum(U ** 2., axis=1)) * 1e6
     plt.scatter(u_plot, v_plot, lw=0, alpha=1, s=10, c='C2')
-
     plt.xlabel('Distance [µm]')
     plt.ylabel('Deformation [µm]')
-
-    plt.savefig(simulation_folder+'\Deformation_Distance_Lin.png', format='png', dpi=700)
+    plt.savefig(simulation_folder+"\\u_r_curve_lin.png", dpi=700)
     plt.close()
 
 
     # Plot 3: Distance Deformation Curve --logscale
     fig4 = plt.figure()
-
-    print (np.min(v_plot))
-
+    #print (np.min(v_plot))
     plt.scatter(u_plot, v_plot, lw=0, alpha=1, s=10, c='C2')
-
     plt.xscale('log')
     plt.yscale('log')
     plt.ylim(10**-10, np.max(v_plot)+10)  # fixed, as autoscale does not work with log scale
     plt.xlabel('Distance [µm]')
     plt.ylabel('Deformation [µm]')
-    plt.savefig(simulation_folder + '\Deformation_Distance_Log.png', format='png', dpi=700)
+    plt.savefig(simulation_folder + "\\u_r_curve_log.png", dpi=700)
     plt.close()
 
 
@@ -293,7 +287,7 @@ def reconstruct_pointforces(simulation_folder,  scalef = 2000, scaleu = 8):
     plt.xlabel('Distance r [µm]')
     plt.ylabel('Force [µN]') 
     plt.tight_layout()
-    plt.savefig(simulation_folder+'/force-distance.png', dpi=300)
+    plt.savefig(simulation_folder+"/force-distance.png", dpi=300)
     plt.close()
 
    
