@@ -8,12 +8,12 @@ import os
 import roipoly
 import glob as glob
 from tqdm import tqdm
-
+from scipy.ndimage import gaussian_filter
 
 
 
 # maximum projections
-def projections(files, output, name, zrange=None, mode="max", percentile_mode =99.5):
+def projections(files, output, name, zrange=None, mode="max", percentile_mode =99.5, gauss_filter = None):
     """
     Compute and store maximum intensity projections of a given stack to combine z information within a single image
     
@@ -58,17 +58,26 @@ def projections(files, output, name, zrange=None, mode="max", percentile_mode =9
         proj = np.mean(images_array,axis=0)  
     if mode == "median":       
         proj = np.median(images_array,axis=0)
-
-    im = Image.fromarray(proj)
+    # create names    
     if mode == "max":
-       filename = 'maxproj_' + str(name) + '.tif'
+       filename = 'maxproj_' + str(name) 
     if mode == "percentile":
-        filename = 'percentile_'+ str(percentile_mode)+"_" + str(name) + '.tif'
+        filename = 'percentile_'+ str(percentile_mode)+"_" + str(name)
     if mode == "mean":    
-        filename = 'meanproj_' + str(name) + '.tif'
+        filename = 'meanproj_' + str(name) 
     if mode == "median":       
-        filename = 'mdianproj_' + str(name) + '.tif'
+        filename = 'mdianproj_' + str(name) 
     
+    # apply gaussian if active
+    if gauss_filter:
+        proj =  gaussian_filter(proj, sigma=gauss_filter)
+        filename = filename+'_gauss_'+str(gauss_filter)+'.tif'
+    else:
+        filename = filename+'.tif'
+
+       
+    im = Image.fromarray(proj)    
+       
     savepath = os.path.join(output, filename)
     im.save(savepath)
 
@@ -242,7 +251,58 @@ def click_length(img_path, out= None, scale = None):
 
 
 
-def leica_projections(experiment_list, output_folder, zrange=None, mode="max", percentile_mode=99):
+def leica_projections_experiment(experiment_list, output_folder, zrange=None, mode="max", percentile_mode=99,gauss_filter=None):
+    """
+    specially tailored to leica software data structure - creates individual maximum projections for several  experiments 
+    (stacks of several positions for several time steps stored in several sub-series)
+    Fixed for 2 channels (ch00 + ch01) here
+    
+    
+    experiment_list: list of all mark_and_find experiments to be evaluated (can contain several subseries)
+                     e.g.    [r"..\data\Sample_1",  r"..\data\Sample_2"] where Sample_1 contains all tiff images
+    
+    output_folder: to store output projections - subfolder are created automatically
+    gauss_filter: gauss filter projecteions if not none 
+    zrange: range of images around stack center for the maximum projection
+    """
+   # create outputfolder if not exists
+    if not os.path.exists(output_folder):
+     os.makedirs(output_folder)                                         
+    # loop through all experiments
+    for exp in (experiment_list):
+            print ("Current:"+str(exp))
+            data_ch00 = glob.glob(exp+"\*ch00.tif")  # read in imagedata also containing all subseries 
+            data_ch01 = glob.glob(exp+"\*ch01.tif")  # read in imagedata also containing all subseries 
+            # find the number of subseries for this expereiment
+            number_series = np.unique([int(os.path.basename(data_ch00[i])[6:9]) for i in range(len(data_ch00)) ])  
+            print("Subseries found: "+str(number_series))
+            # loop through subseries (counting from 1)
+            for n in tqdm(number_series): 
+                print ("Suberies number: "+str(n))
+                # mask all data of subseries
+                mask_subseries =  "Series{}".format(str(n).zfill(3))  
+                subseries_ch00 =  [x for x in data_ch00 if mask_subseries in x] 
+                subseries_ch01 =  [x for x in data_ch01 if mask_subseries in x]
+                # find maximum timestep of the eries
+                t_list = np.unique([ ((os.path.basename(subseries_ch00[i]).split('_'))[1][1:]) for i in range(len(subseries_ch00)) ])
+                max_t = np.max([int(tt) for tt in t_list])  
+                print ("Timesteps found: "+ str(max_t))
+                # create maximumprojection for each time step
+                for t in tqdm(t_list):
+                    # stacks ch00 and ch01 ot make the current maxproj
+                    stack_data_ch00 = [x for x in subseries_ch00 if "t{}".format(t) in x]
+                    stack_data_ch01 = [x for x in subseries_ch01 if "t{}".format(t) in x]
+                    # nameing for current stacks
+                    current_experiment = os.path.basename(exp)   
+                    name =  os.path.split(stack_data_ch00[0])[1][:-14] 
+                    #current subfolder
+                    exp_folder = os.path.join(output_folder,current_experiment)
+                    # make the projection
+                    projections(stack_data_ch00, os.path.join(exp_folder,"ch00_zrange_{}".format(zrange)), name, zrange=zrange, mode=mode, percentile_mode =percentile_mode, gauss_filter = gauss_filter)
+                    projections(stack_data_ch01, os.path.join(exp_folder,"ch01_zrange_{}".format(zrange)), name, zrange=zrange, mode=mode,  percentile_mode =percentile_mode, gauss_filter = gauss_filter)              
+    return
+
+def leica_projections_markfind(experiment_list, output_folder, zrange=None, mode="max", percentile_mode=99):
     """
     specially tailored to leica software data structure - creates individual maximum projections for several mark and find experiments 
     (stacks of several positions for several time steps stored in several sub-series)
