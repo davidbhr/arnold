@@ -274,7 +274,8 @@ def leica_projections_experiment(experiment_list, output_folder, zrange=None, mo
             data_ch00 = glob.glob(exp+"\*ch00.tif")  # read in imagedata also containing all subseries 
             data_ch01 = glob.glob(exp+"\*ch01.tif")  # read in imagedata also containing all subseries 
             # find the number of subseries for this expereiment
-            number_series = np.unique([int(os.path.basename(data_ch00[i])[6:9]) for i in range(len(data_ch00)) ])  
+            number_series = np.unique([int(os.path.basename(data_ch00[i]).split("Series")[1][:3]) for i in range(len(data_ch00)) ])  
+            
             print("Subseries found: "+str(number_series))
             # loop through subseries (counting from 1)
             for n in tqdm(number_series): 
@@ -284,7 +285,7 @@ def leica_projections_experiment(experiment_list, output_folder, zrange=None, mo
                 subseries_ch00 =  [x for x in data_ch00 if mask_subseries in x] 
                 subseries_ch01 =  [x for x in data_ch01 if mask_subseries in x]
                 # find maximum timestep of the eries
-                t_list = np.unique([ ((os.path.basename(subseries_ch00[i]).split('_'))[1][1:]) for i in range(len(subseries_ch00)) ])
+                t_list = np.unique([ (os.path.basename(subseries_ch00[i]).split('Series')[1].split("_")[1][1:]) for i in range(len(subseries_ch00)) ])
                 max_t = np.max([int(tt) for tt in t_list])  
                 print ("Timesteps found: "+ str(max_t))
                 # create maximumprojection for each time step
