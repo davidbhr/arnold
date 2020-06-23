@@ -113,7 +113,7 @@ def piv_analysis( contr,relax, outfolder,scale, winsize_um = 10 , overlap_um =No
         overlap = int(overlap_um/scale)
         
     if not searchsize_um:
-        searchsize = 2*winsize
+        searchsize = winsize
     else:
         searchsize = int(searchsize_um/scale)
     
