@@ -238,12 +238,12 @@ Different image analysis functions are included in *image.py*.
 
 `ar.image.piv_analysis()`: Computes deformations between 2 images by crosscorrelation using openpiv
 
-`ar.image.click_length()`: Computes the length of clicked line for given inout image and scale 
+`ar.image.click_length()`: Computes the length of clicked line for given input image and scale 
 
 
 ##  3D Regularization
 
-Tools to start a SAENO 3D force regularization of a contracted and relaxed image stack are given within *regularization.py*. 
+Functions to start a SAENO 3D force regularization of a contracted and relaxed image stack are given within *regularization.py*. 
 
 
 ## Dependencies
