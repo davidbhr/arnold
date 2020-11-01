@@ -228,29 +228,22 @@ ar.experiment.evaluate_series(path, comment='')
 
 ## Different geometries
 
-ToDo .. add dipole + sphere ( + evaluation function )
-
-
+A set of different mesh geometries and simulations (sphere, cylinder, dipole) are predefined in *mesh.py* and *simulation.py*
 
 ## Image 
 
-ToDo: Tools for imageprocessing:  maxprojection - 2d piv to extract deformations - length to click cell deformation
+Different image analysis functions are included in *image.py*.
 
-install openpiv if for function XY
+`ar.image.projections()`: Calculated Maximum/Mean/Median Intensity projections of image stacks
 
-may be used to project 3d deformations into 2d and start simulation .. (e.g. dipole ...)
+`ar.image.piv_analysis()`: Computes deformations between 2 images by crosscorrelation using openpiv
+
+`ar.image.click_length()`: Computes the length of clicked line for given inout image and scale 
 
 
 ##  3D Regularization
 
-ToDo: Tools to start a SAENO  3D regularization of contracted relaxed stack  by X . 
-
-Show and filter deformations by Y,Z    (add image)
-
-Start simulation from files e.g. filtered deformation by X
-
-On some systems problems with input images as .tif, therefore converted to png by using X
-
+Tools to start a SAENO 3D force regularization of a contracted and relaxed image stack are given within *regularization.py*. 
 
 
 ## Dependencies
