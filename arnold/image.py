@@ -13,7 +13,7 @@ from scipy.ndimage import gaussian_filter
 
 
 # maximum projections
-def projections(files, output, name, zrange=None, mode="max", percentile_mode =99.5, gauss_filter = None):
+def projections(files, output=None, name="projection", zrange=None, mode="max", percentile_mode =99.5, gauss_filter = None):
     """
     Compute and store maximum intensity projections of a given stack to combine z information within a single image
     
@@ -77,9 +77,10 @@ def projections(files, output, name, zrange=None, mode="max", percentile_mode =9
 
        
     im = Image.fromarray(proj)    
-       
-    savepath = os.path.join(output, filename)
-    im.save(savepath)
+    
+    if output is not None:
+        savepath = os.path.join(output, filename)
+        im.save(savepath)
 
     return  proj
 
