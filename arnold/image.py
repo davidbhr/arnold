@@ -32,11 +32,7 @@ def projections(files, output=None, name="projection", zrange=None, mode="max", 
    
     zmin=int(stacksize/2-(zrange/2))
     zmax=int(stacksize/2+(zrange/2))
-             
-             
-    # creates folder if it doesn't exist
-    if not os.path.exists(output):
-        os.makedirs(output)
+
 
     # iterate over files, read img (.tif), append to list
     im_list = []
@@ -79,6 +75,11 @@ def projections(files, output=None, name="projection", zrange=None, mode="max", 
     im = Image.fromarray(proj)    
     
     if output is not None:
+
+        # creates folder if it doesn't exist
+        if not os.path.exists(output):
+            os.makedirs(output)
+            
         savepath = os.path.join(output, filename)
         im.save(savepath)
 
