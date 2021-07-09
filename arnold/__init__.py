@@ -16,6 +16,7 @@ from . import force
 from . import materials
 from . import mesh
 from . import simulation
+from . import simulation_saenopy
 from . import utils
 from . import image
 from . import regularization
