@@ -13,6 +13,7 @@ else:
 # import package files
 from . import experiment
 from . import force
+from . import force_saenopy
 from . import materials
 from . import mesh
 from . import simulation
