@@ -41,8 +41,8 @@ Now we need to tell Arnold one-time where `Gmsh` and `SAENO` are stored. Therefo
 ```python
 import arnold as ar
 
-ar.set_gmsh_path(r'C:\..\gmsh-4.3.0-Windows64-sdk')
-ar.set_saeno_path(r'C:\..\SAENO')
+ar.utils.set_gmsh_path(r'C:\..\gmsh-4.3.0-Windows64-sdk')
+ar.utils.set_saeno_path(r'C:\..\SAENO.exe')
 ```
 
 Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not have to be set at all.
