@@ -206,7 +206,7 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
         
         # create log file with system output
         logfile = open(simulation_folder + "/saeno_log.txt", 'w')
-        cmd = subprocess.Popen(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
+        cmd = subprocess.Popen(SAENOPATH+" CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
         # print and save a reduced version of saeno log
         for line in cmd.stdout:
             if not '%' in line:
@@ -217,8 +217,9 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
         
     # if false just show the non reduced system output    
     else:
-        cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
-        
+        #cmd = subprocess.call(SAENOPATH+"\saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
+        cmd = subprocess.call(SAENOPATH+" CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
+       
 
   
 # two point forces in certain distances --------------------------------------------------------------------------    
@@ -443,7 +444,7 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, strain, materi
        
         # create log file with system output
         logfile = open(simulation_folder + "/saeno_log.txt", 'w')
-        cmd = subprocess.Popen(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
+        cmd = subprocess.Popen(SAENOPATH+" CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
         # print and save a reduced version of saeno log
         for line in cmd.stdout:
             if not '%' in line:
@@ -454,7 +455,7 @@ def point_forces(simulation_folder, mesh_file, r_outer, distance, strain, materi
        
     # if false just show the non reduced system output    
     else:
-        cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
+        cmd = subprocess.call(SAENOPATH+" CONFIG {}/config.txt".format(os.path.abspath(simulation_folder))) 
      
   
         
@@ -611,7 +612,7 @@ def spherical_contraction(meshfile, simulation_folder, pressure, material, r_inn
         
         # create log file with system output
         logfile = open(simulation_folder + "/saeno_log.txt", 'w')
-        cmd = subprocess.Popen(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
+        cmd = subprocess.Popen(SAENOPATH+" CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
         # print and save a reduced version of saeno log
         for line in cmd.stdout:
             if not '%' in line:
@@ -622,7 +623,7 @@ def spherical_contraction(meshfile, simulation_folder, pressure, material, r_inn
         
     # if false just show the non reduced system output    
     else:
-        cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)))   
+        cmd = subprocess.call(SAENOPATH+" CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)))   
 
 
 
@@ -776,7 +777,7 @@ def spherical_contraction_strain(meshfile, simulation_folder, strain, material, 
         
         # create log file with system output
         logfile = open(simulation_folder + "/saeno_log.txt", 'w')
-        cmd = subprocess.Popen(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
+        cmd = subprocess.Popen(SAENOPATH+" CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)), stdout=subprocess.PIPE , universal_newlines=True, shell=False)
         # print and save a reduced version of saeno log
         for line in cmd.stdout:
             if not '%' in line:
@@ -787,7 +788,7 @@ def spherical_contraction_strain(meshfile, simulation_folder, strain, material, 
         
     # if false just show the non reduced system output    
     else:
-        cmd = subprocess.call(SAENOPATH+"/saeno CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)))          
+        cmd = subprocess.call(SAENOPATH+" CONFIG {}/config.txt".format(os.path.abspath(simulation_folder)))          
        
 
 

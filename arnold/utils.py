@@ -24,7 +24,7 @@ def set_gmsh_path(path, overwrite=False):
         print('Set Gmsh path to: {}'.format(path))
 
 
-def set_saeno_path(path, overwrite=False):
+def set_saeno_path(path, overwrite=True):
     # find site-package directory
     dir = get_python_lib()
     pathfile = dir + '/saeno.cfg'
