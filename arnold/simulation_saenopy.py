@@ -87,7 +87,7 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     
     # create solver object in saenopy
     M = Solver()
-    material_saenopy = SemiAffineFiberMaterial(K_0, D_0, L_S, D_S)
+    material_saenopy = SemiAffineFiberMaterial( k=K_0, d0=D_0, lambda_s=L_S, ds=D_S)  
     M.setMaterialModel(material_saenopy)
     M.setNodes(coords)
     M.setTetrahedra(tets)
@@ -132,14 +132,34 @@ def cylindric_contraction(simulation_folder, mesh_file, d_cyl, l_cyl, r_outer, s
     # set forces 
     # forces are everywhere 0 in the bulk
     bcond_forces = np.zeros((len(coords), 3))
-    # except at the outer boder there they are NaN
+    # only at outer space and surface calulate fores
     bcond_forces[mask_outer] = np.nan
-    # and at the innter border they depend on the pressure
+    # and at the inner border 
     bcond_forces[mask_inner] = np.nan
    
+    # Apply zero deformations as intial state 
+    # for all fixed nodes (here cell/outer) initial displacements areignored
+    
+    
+    # set initial displacements  
+    iconf = np.zeros((len(coords), 3))  # nan in the bulk, there they will be calculated
+    iconf[mask_outer] = 0   # constraint to zero at the outer border
+    #fixed displacements in x direction at surface (linear decreasing in size from both poles)
+    iconf[mask_inner, 0] =   (-deformation/2) * (coords[mask_inner][:,0]/ (l_cyl/2))   # fi
+    #Set Displacements for volume conservation  (pi r0² h0 = pi r1² h1)
+    r1 = (d_cyl/2) * (1/np.sqrt(((l_cyl/2) + (-deformation/2))/(l_cyl/2)))  
+    dr = r1 - (d_cyl/2)
+    iconf[mask_inner, 1] = ((coords[mask_inner][:,1])/(d_cyl/2))*dr
+    iconf[mask_inner, 2] = ((coords[mask_inner][:,2])/(d_cyl/2))*dr
 
+    
+    #M.setInitialDisplacements(np.zeros((len(coords), 3)))
+    
+    
     # give the boundary conditions to the solver
     M.setBoundaryCondition(bcond_displacement, bcond_forces)
+    
+    M.setInitialDisplacements(iconf)
     
     
     # create parameters.txt--------------------------------------------------------

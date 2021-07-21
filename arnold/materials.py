@@ -20,6 +20,17 @@ def youngs_modulus(youngs_modulus):
     return {'K_0': youngs_modulus*6, 'D_0': 1e30, 'L_S': 1e30, 'D_S': 1e30}
 
 
+def youngs_modulus_saenopy(youngs_modulus):
+    """
+    Defines the material properties for a linear-elastic hydrogel (such as Matrigel) hydrogel with a poission ratio of 0.25 (see [Steinwachs,2015], in this case Youngsmodulus equals K_0/6).
+    
+    Use None in saenopy
+    
+    Args:
+        youngs_modulus(float) : Young's modulus of the material in Pascal for SAENO Simulation (see [Steinwachs,2015])
+    """
+    return {'K_0': youngs_modulus*6, 'D_0': None, 'L_S': None, 'D_S': None}
+
 
 def custom(K_0, D_0, L_S, D_S):
     """
