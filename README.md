@@ -45,7 +45,7 @@ ar.utils.set_gmsh_path(r'C:\..\gmsh-4.3.0-Windows64-sdk')
 ar.utils.set_saeno_path(r'C:\..\SAENO.exe')
 ```
 
-Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not have to be set at all.
+Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not have to be set at all. Alternativley,  we can also use the functions within force_saenopy.py and simulation_saenopy.py that instead of saeno are using [saenopy](https://github.com/rgerum/saenopy) for a purely python based implementation.
 
 
 
