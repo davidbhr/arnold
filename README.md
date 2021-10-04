@@ -45,8 +45,11 @@ ar.utils.set_gmsh_path(r'C:\..\gmsh-4.3.0-Windows64-sdk')
 ar.utils.set_saeno_path(r'C:\..\SAENO.exe')
 ```
 
-Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not have to be set at all. Alternativley,  we can also use the functions within force_saenopy.py and simulation_saenopy.py that instead of saeno are using [saenopy](https://github.com/rgerum/saenopy) for a purely python based implementation.
+Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not have to be set at all. 
 
+
+>**Alternativley,  we can also use the equivalent functions within `force_saenopy.py` and `simulation_saenopy.py` that instead of saeno are using [saenopy](https://github.com/rgerum/saenopy) for a purely python based implementation.
+**
 
 
 
@@ -166,6 +169,9 @@ The results are stored in the set *simulation_folder*. For the nodes at the fibe
 
 ```python
 ar.force.reconstruct_contractility(simulation_folder=r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
+
+# or for a purely python-based implementation using saenopy
+ar.force_saenopy.reconstruct_contractility(simulation_folder=r'C/../Simulation', d_cyl=30, l_cyl=300, r_outer=2000)
 ```
 
 In an excel document the resulting contractility is saved under *'Contractility mean x-components'*. Further, the contractility is calculated considering the absolute forces instead of the x-components only and individually over the left half, the right half and total fiber volume. Additionally the residuum forces are calculated, which can be used to verify the simulation (forces at the outer boundary must compensate for the forces within the mesh moddel). For visualization and error detection an image of the deformtion- and force-field is stored. 
