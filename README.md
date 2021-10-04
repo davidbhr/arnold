@@ -70,7 +70,7 @@ To measure the exerted muscle forces, we need the following information about th
 
 
 
->**For further applications arnold offers different geometries such as spheres or dipoles. Image processing functions may be used to create  maximum projections from 3D stacks and extract deformations by using particle image velocity (OpenPiv) or by manual clicking lengths. With these information, SAENO simulations with individual geometry can be started. In addition also a full 3D regularization of all deformations from two given input stacks (in  relaxed and contracted state) can be started. In the following, the method is first described by using cylindrical geometry**
+>For further applications arnold offers different geometries such as spheres or dipoles. Image processing functions may be used to create  maximum projections from 3D stacks and extract deformations by using particle image velocity (OpenPiv) or by manual clicking lengths. With these information, SAENO simulations with individual geometry can be started. In addition also a full 3D regularization of all deformations from two given input stacks (in  relaxed and contracted state) can be started. In the following, the method is first described by using cylindrical geometry
 
 
 
