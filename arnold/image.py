@@ -79,7 +79,7 @@ def projections(files, output=None, name="projection", zrange=None, mode="max", 
         # creates folder if it doesn't exist
         if not os.path.exists(output):
             os.makedirs(output)
-            
+
         savepath = os.path.join(output, filename)
         im.save(savepath)
 
@@ -297,7 +297,7 @@ def leica_projections_experiment(experiment_list, output_folder, zrange=None, mo
                     stack_data_ch01 = [x for x in subseries_ch01 if "t{}".format(t) in x]
                     # nameing for current stacks
                     current_experiment = os.path.basename(exp)   
-                    name =  os.path.split(stack_data_ch00[0])[1][:-14] 
+                    name =  os.path.split(stack_data_ch00[0])[1] #[:-14]    
                     #current subfolder
                     exp_folder = os.path.join(output_folder,current_experiment)
                     # make the projection
