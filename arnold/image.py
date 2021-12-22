@@ -364,8 +364,8 @@ def leica_projections_markfind(experiment_list, output_folder, zrange=None, mode
                         # nameing for current stacks
                         current_experiment = os.path.basename(exp)
                         upper = os.path.split(os.path.split(stack_data_ch00[0])[0])[1]
-                        name =  os.path.split(stack_data_ch00[0])[1][:-14] 
-                        
+                        name =  os.path.split(stack_data_ch00[0])[1][:-12] 
+
                         #current subfolder
                         exp_folder = os.path.join(output_folder,current_experiment)
                         Pos_folder = os.path.join(exp_folder,"Pos{}".format(str(z).zfill(3)))
