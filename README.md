@@ -48,7 +48,7 @@ ar.utils.set_saeno_path(r'C:\..\SAENO.exe')
 Note: If the `Gmsh SDK` has been installed via `pip` the path to `Gmsh` does not have to be set at all. 
 
 
->Alternativley, we can also use the equivalent functions within `force_saenopy.py` and `simulation_saenopy.py` that instead of saeno are using [saenopy](https://github.com/rgerum/saenopy) for a purely python based implementation.
+> <span style="color:red">UPDATE: Alternativley, we can  use the purely python based implementation [saenopy](https://github.com/rgerum/saenopy). Therefore saeno does not have to be installed and the functions from `force.py` and `simulation.py` that are described below can be replaced by the equivalent functions within `force_saenopy.py` and `simulaton_saenopy.py`, e.g. using `ar.simulation_saenopy.cylindric_contraction(..)` instead of `ar.simulation.cylindric_contraction(..)`
 
 
 
